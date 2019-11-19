@@ -5,16 +5,28 @@ public class Agencia {
 	private String nomeAgencia;
 	private Endereco enderecoAgencia;
 	private Associados[] associadosAgencia;
+	private Conta[] contas;
 	private Gerente gerenteAgencia;
 	
-	protected Agencia(String numeroAgencia, String nomeAgencia, Endereco enderecoAgencia,
-			Associados[] associadosAgencia, Gerente gerenteAgencia) {
+	
+
+	public Agencia(String numeroAgencia, String nomeAgencia, Endereco enderecoAgencia, Associados[] associadosAgencia,
+			Conta[] contas, Gerente gerenteAgencia) {
 		super();
 		setAssociadosAgencia(associadosAgencia);
+		setContas(contas);
 		setEnderecoAgencia(enderecoAgencia);
 		setGerenteAgencia(gerenteAgencia);
 		setNomeAgencia(nomeAgencia);
 		setNumeroAgencia(numeroAgencia);
+	}
+
+	protected Conta[] getContas() {
+		return contas;
+	}
+
+	protected void setContas(Conta[] contas) {
+		this.contas = contas;
 	}
 
 	protected String getNumeroAgencia() {
