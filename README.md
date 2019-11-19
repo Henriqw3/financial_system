@@ -1,7 +1,7 @@
 # financial_system
-Trabalho Final Poo
-Sistema Bancário
-Criadores:  
-    - Breno Henrique de Oliveira
-    - Henrique de Oliveira
-    - Samuel Augusto M. da Silva
+Trabalho Final Poo<br>
+Sistema Bancário<br>
+Criadores:<br>  
+    - Breno Henrique de Oliveira<br>
+    - Henrique de Oliveira<br>
+    - Samuel Augusto M. da Silva<br>
