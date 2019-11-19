@@ -1,5 +1,0 @@
-/*
-	Poupança:
-		-rendimento
-*/
-package model;
