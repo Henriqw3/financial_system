@@ -16,19 +16,19 @@ public class Clientes extends Associados {
 		setEscolaridade(escolaridade);
 	}
 
-	protected Conta[] getContas() {
+	public Conta[] getContas() {
 		return contas;
 	}
 
-	protected void setContas(Conta[] contas) {
+	public void setContas(Conta[] contas) {
 		this.contas = contas;
 	}
 
-	protected String getEscolaridade() {
+	public String getEscolaridade() {
 		return escolaridade;
 	}
 
-	protected void setEscolaridade(String escolaridade) {
+	public void setEscolaridade(String escolaridade) {
 		this.escolaridade = escolaridade;
 	}
 

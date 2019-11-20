@@ -25,51 +25,51 @@ public abstract class Associados {
 		setSexo(sexo);
 	}
 
-	protected Agencia getAgencia() {
+	public Agencia getAgencia() {
 		return agencia;
 	}
 
-	protected void setAgencia(Agencia agencia) {
+	public void setAgencia(Agencia agencia) {
 		this.agencia = agencia;
 	}
 
-	protected Endereco getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	protected void setEndereco(Endereco endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 
-	protected String getNome() {
+	public String getNome() {
 		return nome;
 	}
 	
-	protected String getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 	
-	protected Date getDataNascimento() {
+	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 	
-	protected Character getSexo() {
+	public Character getSexo() {
 		return sexo;
 	}
 	
-	protected String getRg() {
+	public String getRg() {
 		return rg;
 	}
 	
-	protected String getEstadoCivil() {
+	public String getEstadoCivil() {
 		return estadoCivil;
 	}
 	
-	protected void setNome(String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	
-	protected boolean setCpf(String cpf) {
+	public boolean setCpf(String cpf) {
 		if (cpf.length() == 11) {
 			
 			if( cpf != "00000000000" &&
@@ -105,15 +105,15 @@ public abstract class Associados {
 		} return false;
 	}
 	
-	protected void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 	
-	protected void setSexo(Character sexo) {
+	public void setSexo(Character sexo) {
 		this.sexo = sexo; 
 	}
 	
-	protected boolean setRg(String rg) {
+	public boolean setRg(String rg) {
 		if(rg.length() == 10)
 		{
 			this.rg = rg; 
@@ -123,7 +123,7 @@ public abstract class Associados {
 			return false;
 	}
 	
-	protected void setEstadoCivil(String estadoCivil) {
+	public void setEstadoCivil(String estadoCivil) {
 		this.estadoCivil = estadoCivil; 
 	}
 }

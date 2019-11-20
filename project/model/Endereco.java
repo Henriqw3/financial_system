@@ -19,51 +19,51 @@ public class Endereco {
 		setRua(rua);
 	}
 
-	protected String getCep() {
+	public String getCep() {
 		return cep;
 	}
 	
-	protected void setCep(String cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
 	
-	protected Integer getNumEnd() {
+	public Integer getNumEnd() {
 		return numEnd;
 	}
 	
-	protected void setNumEnd(Integer numEnd) {
+	public void setNumEnd(Integer numEnd) {
 		this.numEnd = numEnd;
 	}
 	
-	protected String getRua() {
+	public String getRua() {
 		return rua;
 	}
 	
-	protected void setRua(String rua) {
+	public void setRua(String rua) {
 		this.rua = rua;
 	}
 	
-	protected String getBairro() {
+	public String getBairro() {
 		return bairro;
 	}
 	
-	protected void setBairro(String bairro) {
+	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
 	
-	protected String getCidade() {
+	public String getCidade() {
 		return cidade;
 	}
 	
-	protected void setCidade(String cidade) {
+	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
 	
-	protected String getEstado() {
+	public String getEstado() {
 		return estado;
 	}
 	
-	protected void setEstado(String estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 

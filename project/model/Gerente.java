@@ -15,19 +15,19 @@ public class Gerente extends Funcionarios {
 		setFormacao(formacao);
 	}
 
-	protected Date getDataIngresso() {
+	public Date getDataIngresso() {
 		return dataIngresso;
 	}
 	
-	protected void setDataIngresso(Date dataIngresso) {
+	public void setDataIngresso(Date dataIngresso) {
 		this.dataIngresso = dataIngresso;
 	}
 	
-	protected boolean isFormacao() {
+	public boolean isFormacao() {
 		return formacao;
 	}
 	
-	protected void setFormacao(boolean formacao) {
+	public void setFormacao(boolean formacao) {
 		this.formacao = formacao;
 	}
 }

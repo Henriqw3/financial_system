@@ -13,19 +13,19 @@ class ContaCorrente extends Conta{
 		setTaxaADM(taxaADM);
 	}
 
-	protected Double getLimiteCE() {
+	public Double getLimiteCE() {
 		return limiteCE;
 	}
 
-	protected void setLimiteCE(Double limiteCE) {
+	public void setLimiteCE(Double limiteCE) {
 		this.limiteCE = limiteCE;
 	}
 
-	protected Double getTaxaADM() {
+	public Double getTaxaADM() {
 		return taxaADM;
 	}
 
-	protected void setTaxaADM(Double taxaADM) {
+	public void setTaxaADM(Double taxaADM) {
 		this.taxaADM = taxaADM;
 	}
 }

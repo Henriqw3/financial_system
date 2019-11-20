@@ -21,51 +21,51 @@ public class Agencia {
 		setNumeroAgencia(numeroAgencia);
 	}
 
-	protected Conta[] getContas() {
+	public Conta[] getContas() {
 		return contas;
 	}
 
-	protected void setContas(Conta[] contas) {
+	public void setContas(Conta[] contas) {
 		this.contas = contas;
 	}
 
-	protected String getNumeroAgencia() {
+	public String getNumeroAgencia() {
 		return numeroAgencia;
 	}
 
-	protected void setNumeroAgencia(String numeroAgencia) {
+	public void setNumeroAgencia(String numeroAgencia) {
 		this.numeroAgencia = numeroAgencia;
 	}
 
-	protected String getNomeAgencia() {
+	public String getNomeAgencia() {
 		return nomeAgencia;
 	}
 
-	protected void setNomeAgencia(String nomeAgencia) {
+	public void setNomeAgencia(String nomeAgencia) {
 		this.nomeAgencia = nomeAgencia;
 	}
 
-	protected Endereco getEnderecoAgencia() {
+	public Endereco getEnderecoAgencia() {
 		return enderecoAgencia;
 	}
 
-	protected void setEnderecoAgencia(Endereco enderecoAgencia) {
+	public void setEnderecoAgencia(Endereco enderecoAgencia) {
 		this.enderecoAgencia = enderecoAgencia;
 	}
 
-	protected Associados[] getAssociadosAgencia() {
+	public Associados[] getAssociadosAgencia() {
 		return associadosAgencia;
 	}
 
-	protected void setAssociadosAgencia(Associados[] associadoAgencia) {
+	public void setAssociadosAgencia(Associados[] associadoAgencia) {
 		this.associadosAgencia = associadoAgencia;
 	}
 
-	protected Gerente getGerenteAgencia() {
+	public Gerente getGerenteAgencia() {
 		return gerenteAgencia;
 	}
 
-	protected void setGerenteAgencia(Gerente gerenteAgencia) {
+	public void setGerenteAgencia(Gerente gerenteAgencia) {
 		this.gerenteAgencia = gerenteAgencia;
 	}
 }

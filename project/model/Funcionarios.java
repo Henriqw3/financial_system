@@ -18,27 +18,27 @@ public class Funcionarios extends Associados {
 		setSalario(salario);
 	}
 
-	protected String getCtps() {
+	public String getCtps() {
 		return ctps;
 	}
 	
-	protected void setCtps(String ctps) {
+	public void setCtps(String ctps) {
 		this.ctps = ctps;
 	}
 	
-	protected String getCargoEmpresa() {
+	public String getCargoEmpresa() {
 		return cargoEmpresa;
 	}
 	
-	protected void setCargoEmpresa(String cargoEmpresa) {
+	public void setCargoEmpresa(String cargoEmpresa) {
 		this.cargoEmpresa = cargoEmpresa;
 	}
 	
-	protected Double getSalario() {
+	public Double getSalario() {
 		return salario;
 	}
 	
-	protected void setSalario(Double salario) {
+	public void setSalario(Double salario) {
 		this.salario = salario;
 	}
 	

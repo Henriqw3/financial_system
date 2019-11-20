@@ -15,27 +15,27 @@ public class Transacao {
 		setValor(valor);
 	}
 
-	protected Date getData() {
+	public Date getData() {
 		return data;
 	}
 	
-	protected void setData(Date data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 	
-	protected Double getValor() {
+	public Double getValor() {
 		return valor;
 	}
 	
-	protected void setValor(Double valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 	
-	protected String getCanal() {
+	public String getCanal() {
 		return canal;
 	}
 	
-	protected void setCanal(String canal) {
+	public void setCanal(String canal) {
 		this.canal = canal;
 	}
 	

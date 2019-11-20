@@ -27,75 +27,75 @@ public abstract class Conta {
 		setStatus(false);
 	}
 
-	protected Agencia getAgencia() {
+	public Agencia getAgencia() {
 		return agencia;
 	}
 
-	protected void setAgencia(Agencia agencia) {
+	public void setAgencia(Agencia agencia) {
 		this.agencia = agencia;
 	}
 
-	protected Clientes[] getDonos() {
+	public Clientes[] getDonos() {
 		return donos;
 	}
 
-	protected void setDonos(Clientes[] donos) {
+	public void setDonos(Clientes[] donos) {
 		this.donos = donos;
 	}
 
-	protected Transacao[] getTransacoes() {
+	public Transacao[] getTransacoes() {
 		return transacoes;
 	}
 
-	protected void setTransacoes(Transacao[] transacoes) {
+	public void setTransacoes(Transacao[] transacoes) {
 		this.transacoes = transacoes;
 	}
 
-	protected String getSenha() {
+	public String getSenha() {
 		return senha;
 	}
 
-	protected void setSenha(String senha) {
+	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 	
-	protected Boolean getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 	
-	protected void setStatus(Boolean status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 	
-	protected String getNumConta() {
+	public String getNumConta() {
 		return numConta;
 	}
 	
-	protected void setNumConta(String numConta) {
+	public void setNumConta(String numConta) {
 		this.numConta = numConta;
 	}
 	
-	protected Date getDataAbertura() {
+	public Date getDataAbertura() {
 		return dataAbertura;
 	}
 	
-	protected void setDataAbertura(Date dataAbertura) {
+	public void setDataAbertura(Date dataAbertura) {
 		this.dataAbertura = dataAbertura;
 	}
 	
-	protected Date getDataUltMov() {
+	public Date getDataUltMov() {
 		return dataUltMov;
 	}
 	
-	protected void setDataUltMov(Date dataUltMov) {
+	public void setDataUltMov(Date dataUltMov) {
 		this.dataUltMov = dataUltMov;
 	}
 	
-	protected Double getSaldo() {
+	public Double getSaldo() {
 		return saldo;
 	}
 	
-	protected void setSaldo(Double saldo) {
+	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
 	}
 	

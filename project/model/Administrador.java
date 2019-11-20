@@ -11,19 +11,19 @@ public class Administrador {
 		setUsuario(usuario);
 	}
 
-	protected String getUsuario() {
+	public String getUsuario() {
 		return usuario;
 	}
 	
-	protected void setUsuario(String usuario) {
+	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
 	
-	protected String getSenha() {
+	public String getSenha() {
 		return senha;
 	}
 	
-	protected void setSenha(String senha) {
+	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 	
