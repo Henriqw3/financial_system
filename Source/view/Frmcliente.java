@@ -445,7 +445,8 @@ public class Frmcliente extends javax.swing.JFrame {
         fulano.setEscolaridade(txtescolaridade.getText());
       //fulano.setContas(txt.getText());
       
-        DadosClientes Lista = new DadosClientes(fulano);
+        DadosClientes Lista = new DadosClientes();
+        Lista.addCliente(fulano);
         
     }//GEN-LAST:event_btnAdicionarActionPerformed
 

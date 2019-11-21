@@ -7,13 +7,17 @@ import java.util.List;
 
 public class DadosClientes {
     
-    static List<Clientes> clist;//lista de obj Clientes
+    //static List<Clientes> clist;//lista de obj Clientes
     //clist = new ArrayList<Clientes>();
     
-    public DadosClientes(Clientes cl){
-        
+    ArrayList clist;
+    
+    public DadosClientes(){
+        clist = new ArrayList();        
+    }
+    
+    public void addCliente(Clientes cl){
         this.clist.add(cl);
-                
     }
     
     // BuscarClientepor nome
@@ -21,8 +25,6 @@ public class DadosClientes {
     // Excluir Cliente
     // Adicionar cliente
     // Listar Clientes
-    // Alterar Clinte??
-    
-    
+    // Alterar Clinte?
     
 }
