@@ -17,6 +17,7 @@ public class Frmlogin extends javax.swing.JFrame {
      */
     public Frmlogin() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -33,8 +34,8 @@ public class Frmlogin extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         btnlogin = new javax.swing.JButton();
-        txtsenha = new javax.swing.JTextField();
-        txtusuario = new javax.swing.JTextField();
+        txtsenhaUser = new javax.swing.JTextField();
+        txtnomeUser = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -77,9 +78,9 @@ public class Frmlogin extends javax.swing.JFrame {
             }
         });
 
-        txtusuario.addActionListener(new java.awt.event.ActionListener() {
+        txtnomeUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtusuarioActionPerformed(evt);
+                txtnomeUserActionPerformed(evt);
             }
         });
 
@@ -97,12 +98,12 @@ public class Frmlogin extends javax.swing.JFrame {
                         .addGap(191, 191, 191)
                         .addComponent(jLabel1)
                         .addGap(4, 4, 4)
-                        .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtnomeUser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(202, 202, 202)
                         .addComponent(jLabel2)
                         .addGap(4, 4, 4)
-                        .addComponent(txtsenha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtsenhaUser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(222, 222, 222)
                         .addComponent(btnlogin, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -113,11 +114,11 @@ public class Frmlogin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(86, 86, 86)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtnomeUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtsenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtsenhaUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnlogin)
@@ -199,9 +200,9 @@ public class Frmlogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtusuarioActionPerformed
+    private void txtnomeUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnomeUserActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtusuarioActionPerformed
+    }//GEN-LAST:event_txtnomeUserActionPerformed
 
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
         // TODO add your handling code here:
@@ -271,7 +272,7 @@ public class Frmlogin extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField txtadmsenha;
     private javax.swing.JTextField txtadmusuario;
-    private javax.swing.JTextField txtsenha;
-    private javax.swing.JTextField txtusuario;
+    private javax.swing.JTextField txtnomeUser;
+    private javax.swing.JTextField txtsenhaUser;
     // End of variables declaration//GEN-END:variables
 }

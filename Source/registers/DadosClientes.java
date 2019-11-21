@@ -7,8 +7,22 @@ import java.util.List;
 
 public class DadosClientes {
     
-    //List<Clientes> clist;//lista de obj Clientes
+    static List<Clientes> clist;//lista de obj Clientes
     //clist = new ArrayList<Clientes>();
+    
+    public DadosClientes(Clientes cl){
+        
+        this.clist.add(cl);
+                
+    }
+    
+    // BuscarClientepor nome
+    // BuscarCliente por cpf
+    // Excluir Cliente
+    // Adicionar cliente
+    // Listar Clientes
+    // Alterar Clinte??
+    
     
     
 }

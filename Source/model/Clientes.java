@@ -7,8 +7,11 @@ public class Clientes extends Associados {
 	
 	private String escolaridade;
 	private Conta[] contas = new Conta[3];
-	
-	
+        
+        public Clientes(){
+            super();
+        }
+        
 	public Clientes(String nome, String cpf, Date dataNascimento, Character sexo, String rg, String estadoCivil,
 			Agencia agencia, Endereco endereco, String escolaridade, Conta[] contas) {
 		super(nome, cpf, dataNascimento, sexo, rg, estadoCivil, agencia, endereco);

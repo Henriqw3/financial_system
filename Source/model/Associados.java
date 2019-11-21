@@ -12,6 +12,9 @@ public abstract class Associados {
 	private Agencia agencia;
 	private Endereco endereco;
 	
+        public Associados(){
+        }
+        
 	public Associados(String nome, String cpf, Date dataNascimento, Character sexo, String rg, String estadoCivil,
 			Agencia agencia, Endereco endereco) {
 		super();
