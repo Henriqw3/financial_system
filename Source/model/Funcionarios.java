@@ -8,7 +8,9 @@ public class Funcionarios extends Associados {
 	private String cargoEmpresa;
 	private Double salario;
 	
-	
+        public Funcionarios(){//alternativo
+            super();
+        }
 	
 	public Funcionarios(String nome, String cpf, Date dataNascimento, Character sexo, String rg, String estadoCivil,
 			Agencia agencia, Endereco endereco, String ctps, String cargoEmpresa, Double salario) {

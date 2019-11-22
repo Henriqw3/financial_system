@@ -12,7 +12,7 @@ public class Agencia {
 
 	public Agencia(String numeroAgencia, String nomeAgencia, Endereco enderecoAgencia, Associados[] associadosAgencia,
 			Conta[] contas, Gerente gerenteAgencia) {
-		super();
+              //super();
 		setAssociadosAgencia(associadosAgencia);
 		setContas(contas);
 		setEnderecoAgencia(enderecoAgencia);

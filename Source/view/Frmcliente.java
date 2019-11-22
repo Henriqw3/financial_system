@@ -1,6 +1,7 @@
 
 package view;
 
+import javax.swing.JOptionPane;
 import model.Clientes;
 import model.Endereco;
 import registers.DadosClientes;
@@ -10,7 +11,9 @@ import registers.DadosClientes;
  * @author henrique
  */
 public class Frmcliente extends javax.swing.JFrame {
-
+    
+    DadosClientes Lista = new DadosClientes();
+    
     /**
      * Creates new form cliente
      */
@@ -143,6 +146,11 @@ public class Frmcliente extends javax.swing.JFrame {
 
         btnExcluir.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Sexo:");
 
@@ -427,13 +435,12 @@ public class Frmcliente extends javax.swing.JFrame {
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         // To add Cliente a lista de Clientes
-        
-        
+       
         Clientes fulano = new Clientes();
         
         fulano.setNome(txtnome.getText());
         fulano.setCpf(txtCPF.getText());
-      //fulano.setDataNascimento(txtdatanascimento.getText()); ?? how to get
+      //fulano.setDataNascimento(txtdatanascimento.getText());
         fulano.setSexo((txtsexo.getSelectedItem().toString()).charAt(0));
         fulano.setRg(txtRG.getText());
         fulano.setEstadoCivil(txtestadocivil.getText());
@@ -444,11 +451,30 @@ public class Frmcliente extends javax.swing.JFrame {
         fulano.setEndereco(end);
         fulano.setEscolaridade(txtescolaridade.getText());
       //fulano.setContas(txt.getText());
-      
-        DadosClientes Lista = new DadosClientes();
+ 
         Lista.addCliente(fulano);
         
+        JOptionPane.showMessageDialog(this, ">> Contato cadastrado com Sucesso <<");
+        
+        txtnome.setText("");
+        txtCPF.setText("");
+        txtdatanascimento.setText("");
+        txtsexo.setSelectedItem("M");
+        txtRG.setText("");
+        txtestadocivil.setText("");
+        txtCEP.setText("");
+        txtnumEnd.setText("");
+        txtrua.setText("");
+        txtbairro.setText("");
+        txtcidade.setText("");
+        txtestado.setSelectedItem(0);
+        txtescolaridade.setText("");
     }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        //Lista.excluirCliente(cl);
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
         /**
      * @param args the command line arguments

@@ -8,7 +8,7 @@ public class Clientes extends Associados {
 	private String escolaridade;
 	private Conta[] contas = new Conta[3];
         
-        public Clientes(){
+        public Clientes(){//construtores necessários caso set alternativo não inicializado juntamente!!!!!!!!!
             super();
         }
         
@@ -42,7 +42,4 @@ public class Clientes extends Associados {
 				+ getRg() + ", getEstadoCivil()=" + getEstadoCivil() + ", getClass()=" + getClass() + ", hashCode()="
 				+ hashCode() + ", toString()=" + super.toString() + "]";
 	}
-
-	
-	
 }

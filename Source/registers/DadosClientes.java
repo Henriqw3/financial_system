@@ -7,23 +7,36 @@ import java.util.List;
 
 public class DadosClientes {
     
-    //static List<Clientes> clist;//lista de obj Clientes
-    //clist = new ArrayList<Clientes>();
-    
     ArrayList clist;
     
     public DadosClientes(){
         clist = new ArrayList();        
     }
     
-    public void addCliente(Clientes cl){
-        this.clist.add(cl);
+    public boolean addCliente(Clientes cl){
+        try {
+            this.clist.add(cl);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean excluirCliente(Clientes cl){//nome ou cpf
+        try {
+            this.clist.remove(cl);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;   
+    }
+    
+    public int qtdClientes(){
+        return clist.size();
     }
     
     // BuscarClientepor nome
     // BuscarCliente por cpf
-    // Excluir Cliente
-    // Adicionar cliente
     // Listar Clientes
     // Alterar Clinte?
     
