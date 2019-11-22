@@ -1,6 +1,7 @@
 
 package view;
 
+import javax.swing.JOptionPane;
 import model.Clientes;
 import model.Endereco;
 import model.Agencia;
@@ -12,7 +13,9 @@ import registers.DadosClientes;
  * @author henrique
  */
 public class Frmcliente extends javax.swing.JFrame {
-
+    
+    DadosClientes Lista = new DadosClientes();
+    
     /**
      * Creates new form cliente
      */
@@ -146,6 +149,11 @@ public class Frmcliente extends javax.swing.JFrame {
 
         btnExcluir.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Sexo:");
 
@@ -179,6 +187,11 @@ public class Frmcliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCPFActionPerformed(evt);
+            }
+        });
 
         try {
             txtRG.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###")));
@@ -193,6 +206,11 @@ public class Frmcliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCEP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCEPActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -433,16 +451,40 @@ public class Frmcliente extends javax.swing.JFrame {
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         // To add Cliente a lista de Clientes
-
-       
-
-        //fulano.setAgencia(txt.get);
-        Endereco end = new Endereco(txtCEP.getText(),Integer.parseInt(txtnumEnd.getText()),
-            txtrua.getText(), txtbairro.getText(), txtcidade.getText(),
-            txtestado.getSelectedItem().toString());
+        
+        Clientes fulano = new Clientes();
+        
+        fulano.setNome(txtnome.getText());
+        fulano.setCpf(txtCPF.getText());
+      //fulano.setDataNascimento(txtdatanascimento.getText());
+        fulano.setSexo((txtsexo.getSelectedItem().toString()).charAt(0));
+        fulano.setRg(txtRG.getText());
+        fulano.setEstadoCivil(txtestadocivil.getText());
+      //fulano.setAgencia(txt.get);
+        Endereco end = new Endereco(txtCEP.getText(),Integer.parseInt(txtnumEnd.getText()), 
+                                    txtrua.getText(), txtbairro.getText(), txtcidade.getText(),
+                                    txtestado.getSelectedItem().toString());
         fulano.setEndereco(end);
         fulano.setEscolaridade(txtescolaridade.getText());
-        //fulano.setContas(txt.getText());
+      //fulano.setContas(txt.getText());
+ 
+        Lista.addCliente(fulano);
+        
+        JOptionPane.showMessageDialog(this, ">> Contato cadastrado com Sucesso <<");
+        
+        txtnome.setText("");
+        txtCPF.setText("");
+        txtdatanascimento.setText("");
+        txtsexo.setSelectedItem("M");
+        txtRG.setText("");
+        txtestadocivil.setText("");
+        txtCEP.setText("");
+        txtnumEnd.setText("");
+        txtrua.setText("");
+        txtbairro.setText("");
+        txtcidade.setText("");
+        txtestado.setSelectedItem(0);
+        txtescolaridade.setText("");
 
         DadosClientes Lista = new DadosClientes();
         Lista.addCliente(fulano);
@@ -460,6 +502,22 @@ public class Frmcliente extends javax.swing.JFrame {
     private void txtnomeConsult1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnomeConsult1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnomeConsult1ActionPerformed
+
+                                             
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        //Lista.excluirCliente(cl);
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void txtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCPFActionPerformed
+
+    private void txtCEPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCEPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCEPActionPerformed
+
 
         /**
      * @param args the command line arguments
@@ -495,7 +553,7 @@ public class Frmcliente extends javax.swing.JFrame {
                 new Frmcliente().setVisible(true);
             }
         });
-    }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
@@ -542,4 +600,6 @@ public class Frmcliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtrua;
     private javax.swing.JComboBox<String> txtsexo;
     // End of variables declaration//GEN-END:variables
+
 }
+
