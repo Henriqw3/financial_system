@@ -17,7 +17,7 @@ public class DadosFuncionarios {
         fclist = new ArrayList<>();
     }
     
-    public boolean addCliente(Funcionarios cl){
+    public boolean addFuncionario(Funcionarios cl){
         try {
             this.fclist.add(cl);
         } catch (Exception e) {
@@ -26,7 +26,7 @@ public class DadosFuncionarios {
         return true;
     }
     
-    public boolean excluirCliente(Funcionarios cl){//nome ou cpf
+    public boolean excluirFuncionario(Funcionarios cl){//nome ou cpf
         try {
             this.fclist.remove(cl);
         } catch (Exception e) {

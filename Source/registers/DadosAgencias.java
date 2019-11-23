@@ -16,7 +16,7 @@ public class DadosAgencias {
         aglist = new ArrayList<>();
     }
     
-    public boolean addCliente(Agencia cl){
+    public boolean addAgencia(Agencia cl){
         try {
             this.aglist.add(cl);
         } catch (Exception e) {
@@ -25,7 +25,7 @@ public class DadosAgencias {
         return true;
     }
     
-    public boolean excluirCliente(Agencia cl){//nome ou cpf
+    public boolean excluirAgencia(Agencia cl){//nome ou cpf
         try {
             this.aglist.remove(cl);
         } catch (Exception e) {
@@ -34,7 +34,7 @@ public class DadosAgencias {
         return true;   
     }
     
-    public int qtdClientes(){
+    public int qtdAgencia(){
         return aglist.size();
     }
     
