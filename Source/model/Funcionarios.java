@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Funcionarios extends Associados {
 	
-	private String ctps;
+	private Ctps ctps;
 	private String cargoEmpresa;
 	private Double salario;
 	
@@ -13,18 +13,18 @@ public class Funcionarios extends Associados {
         }
 	
 	public Funcionarios(String nome, String cpf, Date dataNascimento, Character sexo, String rg, String estadoCivil,
-			Agencia agencia, Endereco endereco, String ctps, String cargoEmpresa, Double salario) {
+			Agencia agencia, Endereco endereco, Ctps ctps, String cargoEmpresa, Double salario) {
 		super(nome, cpf, dataNascimento, sexo, rg, estadoCivil, agencia, endereco);
 		setCtps(ctps);
 		setCargoEmpresa(cargoEmpresa);
 		setSalario(salario);
 	}
 
-	public String getCtps() {
+	public Ctps getCtps() {
 		return ctps;
 	}
 	
-	public void setCtps(String ctps) {
+	public void setCtps(Ctps ctps) {
 		this.ctps = ctps;
 	}
 	
