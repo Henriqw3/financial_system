@@ -48,7 +48,7 @@ public class FrmLogin {
 		painel = new JPanel();
 		logo = new JLabel();
 		logo.setBounds(260, 40, 200, 200);
-		logo.setIcon(new ImageIcon("/home/breno/Workspace/financial_system/Source/view/logo.png"));
+		logo.setIcon(new ImageIcon("/home/breno/Workspace/financialSystem/src/telas/logo.png"));
 		labelConta = new JLabel("Conta");
 		labelConta.setBounds(284, 285, 43, 15);
 		textFieldConta = new JTextField();
@@ -86,15 +86,15 @@ public class FrmLogin {
         }
     }
 	
+	@SuppressWarnings("deprecation")
 	private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {
 		Administrador administrador = new Administrador();
 		if (textFieldConta.getText().equals(administrador.getUsuario())) {
-//			if (textFieldSenha.getPassword().equals(administrador.getSenha())) {
-				Frmcliente windowAdministracao = new Frmcliente();
-				windowAdministracao.setVisible(true);
-				this.frame.setVisible(false);
-//			}
+			if (textFieldSenha.getText().equals(administrador.getSenha())) {
+				
+			}
 		} else {
+			
 		}
 		cleanScreen(painel);
 	}
