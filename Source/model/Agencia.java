@@ -8,8 +8,7 @@ public class Agencia {
 	private Conta[] contas;
 	private Gerente gerenteAgencia;
 	
-	
-
+	public Agencia() {}
 	public Agencia(String numeroAgencia, String nomeAgencia, Endereco enderecoAgencia, Associados[] associadosAgencia,
 			Conta[] contas, Gerente gerenteAgencia) {
               //super();

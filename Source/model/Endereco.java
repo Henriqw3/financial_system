@@ -3,13 +3,15 @@ package model;
 public class Endereco {
 	
 	private String cep;
-	private Integer numEnd;
+	private int numEnd;
 	private String rua;
 	private String bairro;
 	private String cidade;
 	private String estado;
+	private String complemento;
 	
-	public Endereco(String cep, Integer numEnd, String rua, String bairro, String cidade, String estado) {
+
+	public Endereco(String cep, int numEnd, String rua, String bairro, String cidade, String estado, String complemento) {
 		super();
 		setBairro(bairro);
 		setCep(cep);
@@ -17,8 +19,17 @@ public class Endereco {
 		setEstado(estado);
 		setNumEnd(numEnd);
 		setRua(rua);
+		setComplemento(complemento);
 	}
 
+	public String getComplemento() {
+		return complemento;
+	}
+	
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+	
 	public String getCep() {
 		return cep;
 	}
@@ -27,11 +38,11 @@ public class Endereco {
 		this.cep = cep;
 	}
 	
-	public Integer getNumEnd() {
+	public int getNumEnd() {
 		return numEnd;
 	}
 	
-	public void setNumEnd(Integer numEnd) {
+	public void setNumEnd(int numEnd) {
 		this.numEnd = numEnd;
 	}
 	
