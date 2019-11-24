@@ -1,47 +1,48 @@
 
 package registers;
 
-import model.Funcionarios;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import model.Funcionarios;
 
 public class DadosFuncionarios {
-    
-    //ArrayList fclist;
-    
-    List<Funcionarios> fclist;//lista de obj Funcionarios
+  
+    List<Funcionarios> listaFuncionarios;
     
     public DadosFuncionarios(){
         
-      //fclist = new ArrayList();        
-        fclist = new ArrayList<>();
+        listaFuncionarios = new ArrayList<>();
     }
     
-    public boolean addFuncionario(Funcionarios cl){
+    public boolean adicionarFuncionario(Funcionarios funcionario){
         try {
-            this.fclist.add(cl);
+            this.listaFuncionarios.add(funcionario);
         } catch (Exception e) {
             return false;
         }
         return true;
     }
     
-    public boolean excluirFuncionario(Funcionarios cl){//nome ou cpf
+    public boolean excluirFuncionario(Funcionarios funcionario){
         try {
-            this.fclist.remove(cl);
+            this.listaFuncionarios.remove(funcionario);
         } catch (Exception e) {
             return false;
         }
         return true;   
     }
     
-    public int qtdFuncionarios(){
-        return fclist.size();
+    public int quantidadeFuncionarios(){
+        return listaFuncionarios.size();
     }
     
-    // BuscarFuncionario por nome
-    // BuscarFuncionario por cpf
-    // Listar Funcionarios
-    // Alterar Funcionario?
+    public Funcionarios buscarFuncionarioPorNome(String nome) {
+    	return listaFuncionarios.stream().filter(funcionario -> funcionario.getNome().equals(nome)).findAny().orElse(null);
+    }
+    
+    public Funcionarios buscarFuncionarioPorCPF(String cpf) {
+    	return listaFuncionarios.stream().filter(funcionario -> funcionario.getCpf().equals(cpf)).findAny().orElse(null);
+    }
 
 }

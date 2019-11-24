@@ -5,6 +5,7 @@ public class Administrador {
 	private String usuario = "groot";
 	private String senha = "groot";
 	
+	public Administrador() {}
 	public Administrador(String usuario, String senha) {
 		super();
 		setSenha(senha);
