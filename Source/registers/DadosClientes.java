@@ -7,40 +7,43 @@ import java.util.List;
 
 public class DadosClientes {
     
-    //ArrayList clist;
     
-    List<Clientes> clist;//lista de obj Clientes
+    List<Clientes> listaClientes;
     
     public DadosClientes(){
-        
-      //clist = new ArrayList();        
-        clist = new ArrayList<>();
+        listaClientes = new ArrayList<>();
     }
-    public boolean addCliente(Clientes cl){
+    public boolean adicionarCliente(Clientes cliente){
         try {
-            this.clist.add(cl);
+            this.listaClientes.add(cliente);
         } catch (Exception e) {
             return false;
         }
         return true;
     }
     
-    public boolean excluirCliente(Clientes cl){//nome ou cpf
+    public boolean excluirCliente(Clientes cliente) {
         try {
-            this.clist.remove(cl);
+            this.listaClientes.remove(cliente);
         } catch (Exception e) {
             return false;
         }
         return true;   
     }
     
-    public int qtdClientes(){
-        return clist.size();
+    public int quantidadeClientes(){
+        return listaClientes.size();
     }
     
-    // BuscarClientepor nome
-    // BuscarCliente por cpf
-    // Listar Clientes
-    // Alterar Cliente?
+    public Clientes buscarClientePorNome(String nome) {
+    	return listaClientes.stream()
+    			.filter(cliente -> cliente.getNome().equals(nome))
+    			.findAny().orElse(null);
+    }
     
+    public Clientes buscarClientePorCPF(String cpf) {
+    	return listaClientes.stream()
+    			.filter(cliente -> cliente.getCpf().equals(cpf))
+    			.findAny().orElse(null);
+    }
 }
