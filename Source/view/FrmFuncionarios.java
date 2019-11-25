@@ -22,11 +22,14 @@ import model.Endereco;
 import model.Funcionarios;
 import registers.DadosFuncionarios;
 
-public class FrmFuncionarios extends CompCadastro{
+public class FrmFuncionarios {
 
-	DadosFuncionarios listaFuncionarios = new DadosFuncionarios();
+	private DadosFuncionarios listaFuncionarios = new DadosFuncionarios();
+	private CompCadastro vC = new CompCadastro();
+	private CompConsulta vP = new CompConsulta();
 	private JFrame frame;
 	private JTabbedPane tabbedPane;
+	private JPanel consulta;
 	private JPanel cadastro;
 	private JLabel labelNumCTPS;
 	private JTextField textFieldNumCTPS;
@@ -103,10 +106,16 @@ public class FrmFuncionarios extends CompCadastro{
 		});
 		btnRemover = new JButton("Remover");
 		btnRemover.setBounds(522, 310, 150, 50);
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnRemoverActionPerformed(arg0);
+			}
+		});
 		frame.setBounds(100, 100, 1024, 480);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		cadastro = getCadastro();
+		
+		cadastro = vC.getCadastro();
 		cadastro.add(btnCadastrar);
 		cadastro.add(btnRemover);
 		cadastro.add(labelNumCTPS);
@@ -119,26 +128,54 @@ public class FrmFuncionarios extends CompCadastro{
 		cadastro.add(comboBoxCargo);
 		cadastro.add(labelSalario);
 		cadastro.add(textFieldSalario);
+		
+		consulta = vP.getConsulta();
 		frame.add(tabbedPane);
 		tabbedPane.add(cadastro);
-		tabbedPane.setTitleAt(0, "Dados");
+		tabbedPane.add(consulta);
+		tabbedPane.setTitleAt(0, "Dados Pessoais");
+		tabbedPane.setTitleAt(1, "Consulta");
 	}
 	
 	private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
-		Endereco endereco = new Endereco( getTextFieldCEP().getText(), 
-				Integer.parseInt( getTextFieldNumero().getText()),  getTextFieldRua().getText(),
-				 getTextFieldBairro().getText(),  getTextFieldCidade().getText(), 
-				 getComboBoxEstado().getSelectedItem().toString(),  getTextFieldComplemento().getText());
-		
-		Funcionarios funcionario = new Funcionarios( getTextFieldNomeCadastro().getText(), 
-				 getTextFieldCPFCadastro().getText(), new Date(),
-				 getComboBoxSexo().getSelectedItem().toString().charAt(0),  getTextFieldRG().getText(),
-				 getComboBoxEstadoCivil().getSelectedItem().toString(), new Agencia(), endereco, 
-				textFieldNumCTPS.getText() + " " + textFieldSerieCTPS.getText() + " " + comboBoxUFCTPS.getSelectedItem().toString().charAt(0),
-				comboBoxCargo.getSelectedItem().toString(), Double.parseDouble(textFieldSalario.getText()));
-		
-		listaFuncionarios.adicionarFuncionario(funcionario);
-		System.out.println(listaFuncionarios.quantidadeFuncionarios());
-		cleanScreen(cadastro);
+		try {
+			Endereco endereco = new Endereco(vC.getTextFieldCEP().getText(), 
+					Integer.parseInt( vC.getTextFieldNumero().getText()),  vC.getTextFieldRua().getText(),
+					 vC.getTextFieldBairro().getText(),  vC.getTextFieldCidade().getText(), 
+					 vC.getComboBoxEstado().getSelectedItem().toString(),  vC.getTextFieldComplemento().getText());
+			
+			Funcionarios funcionario = new Funcionarios(vC.getTextFieldNomeCadastro().getText(), 
+					 vC.getTextFieldCPFCadastro().getText(), new Date(),
+					 vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),  vC.getTextFieldRG().getText(),
+					 vC.getComboBoxEstadoCivil().getSelectedItem().toString(), new Agencia(), endereco, 
+					textFieldNumCTPS.getText() + " " + textFieldSerieCTPS.getText() + " " + comboBoxUFCTPS.getSelectedItem().toString().charAt(0),
+					comboBoxCargo.getSelectedItem().toString(), Double.parseDouble(textFieldSalario.getText()));
+			
+			listaFuncionarios.adicionarFuncionario(funcionario);
+			cleanScreen(cadastro);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {
+		try {
+			Endereco endereco = new Endereco(vC.getTextFieldCEP().getText(), 
+					Integer.parseInt( vC.getTextFieldNumero().getText()),  vC.getTextFieldRua().getText(),
+					 vC.getTextFieldBairro().getText(),  vC.getTextFieldCidade().getText(), 
+					 vC.getComboBoxEstado().getSelectedItem().toString(),  vC.getTextFieldComplemento().getText());
+			
+			Funcionarios funcionario = new Funcionarios(vC.getTextFieldNomeCadastro().getText(), 
+					 vC.getTextFieldCPFCadastro().getText(), new Date(),
+					 vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),  vC.getTextFieldRG().getText(),
+					 vC.getComboBoxEstadoCivil().getSelectedItem().toString(), new Agencia(), endereco, 
+					textFieldNumCTPS.getText() + " " + textFieldSerieCTPS.getText() + " " + comboBoxUFCTPS.getSelectedItem().toString().charAt(0),
+					comboBoxCargo.getSelectedItem().toString(), Double.parseDouble(textFieldSalario.getText()));
+			
+			listaFuncionarios.excluirFuncionario(funcionario);
+			cleanScreen(cadastro);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

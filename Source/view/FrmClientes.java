@@ -18,11 +18,14 @@ import model.Clientes;
 import model.Endereco;
 import registers.DadosClientes;
 
-public class FrmClientes extends CompCadastro{
+public class FrmClientes {
 
-	DadosClientes listaClientes = new DadosClientes();
+	private DadosClientes listaClientes = new DadosClientes();
+	private CompCadastro vC = new CompCadastro();
+	private CompConsulta vP = new CompConsulta();
 	private JFrame frame;
 	private JTabbedPane tabbedPane;
+	private JPanel consulta;
 	private JPanel cadastro;
 	private JLabel labelEscolaridade;
 	private JTextField textFieldEscolaridade;
@@ -59,9 +62,9 @@ public class FrmClientes extends CompCadastro{
 		frame = new JFrame("Financial System - CADASTRO CLIENTES");
 		tabbedPane = new JTabbedPane();
 		labelEscolaridade = new JLabel("Escolaridade");
-		labelEscolaridade.setBounds(50, 170, 90, 15);
+		labelEscolaridade.setBounds(745, 135, 100, 15);
 		textFieldEscolaridade = new JTextField();
-		textFieldEscolaridade.setBounds(150, 165, 157, 24);
+		textFieldEscolaridade.setBounds(845, 130, 129, 24);
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.setBounds(362, 310, 150, 50);
 		btnCadastrar.addActionListener(new ActionListener() {
@@ -74,29 +77,37 @@ public class FrmClientes extends CompCadastro{
 		frame.setBounds(100, 100, 1024, 480);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		cadastro =  getCadastro();
+		cadastro = vC.getCadastro();
+		consulta = vP.getConsulta();
 		cadastro.add(labelEscolaridade);
 		cadastro.add(textFieldEscolaridade);
 		cadastro.add(btnCadastrar);
 		cadastro.add(btnRemover);
+		vC.getTextFieldComplemento().setSize(180, 24);
 		frame.add(tabbedPane);
 		tabbedPane.add(cadastro);
-		tabbedPane.setTitleAt(0, "Dados");
+		tabbedPane.add(consulta);
+		tabbedPane.setTitleAt(0, "Dados Pessoais");
+		tabbedPane.setTitleAt(1, "Consulta");
 	}
 	
 	private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
-		Endereco endereco = new Endereco( getTextFieldCEP().getText(), 
-				Integer.parseInt( getTextFieldNumero().getText()),  getTextFieldRua().getText(),
-				 getTextFieldBairro().getText(),  getTextFieldCidade().getText(), 
-				 getComboBoxEstado().getSelectedItem().toString(),  getTextFieldComplemento().getText());
-		
-		Clientes cliente = new Clientes(getTextFieldNomeCadastro().getText(), 
-				 getTextFieldCPFCadastro().getText(), new Date(), getComboBoxSexo().getSelectedItem().toString().charAt(0),
-				 getTextFieldRG().getText(), getComboBoxEstadoCivil().getSelectedItem().toString(), new Agencia(), endereco, 
-				 textFieldEscolaridade.getText());
-		
-		listaClientes.adicionarCliente(cliente);
-		System.out.println(listaClientes.quantidadeClientes());
-		cleanScreen(cadastro);
+		try {
+			Endereco endereco = new Endereco( vC.getTextFieldCEP().getText(), 
+					Integer.parseInt( vC.getTextFieldNumero().getText()),  vC.getTextFieldRua().getText(),
+					vC.getTextFieldBairro().getText(),  vC.getTextFieldCidade().getText(), 
+					vC.getComboBoxEstado().getSelectedItem().toString(),  vC.getTextFieldComplemento().getText());
+			
+			Clientes cliente = new Clientes(vC.getTextFieldNomeCadastro().getText(), 
+					vC.getTextFieldCPFCadastro().getText(), new Date(), vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),
+					vC.getTextFieldRG().getText(), vC.getComboBoxEstadoCivil().getSelectedItem().toString(), new Agencia(), endereco, 
+					 textFieldEscolaridade.getText());
+			
+			listaClientes.adicionarCliente(cliente);
+			System.out.println(listaClientes.quantidadeClientes());
+			cleanScreen(cadastro);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

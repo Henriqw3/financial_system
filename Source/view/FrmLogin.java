@@ -14,9 +14,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import model.Administrador;
+import model.Clientes;
+import registers.DadosClientes;
 
 public class FrmLogin {
 
+	private DadosClientes listaClientes = new DadosClientes();
 	private JFrame frame;
 	private JPanel painel;
 	private JButton btnLogin;
@@ -48,13 +51,13 @@ public class FrmLogin {
 		painel = new JPanel();
 		logo = new JLabel();
 		logo.setBounds(260, 40, 200, 200);
-		logo.setIcon(new ImageIcon("/home/breno/Workspace/financialSystem/src/telas/logo.png"));
+		logo.setIcon(new ImageIcon("/home/breno/financial_system/Source/view/logo.png"));
 		labelConta = new JLabel("Conta");
 		labelConta.setBounds(284, 285, 43, 15);
 		textFieldConta = new JTextField();
 		textFieldConta.setBounds(337, 285, 90, 25);
 		labelSenha = new JLabel("Senha");
-		labelSenha.setBounds(284, 315, 43, 15);
+		labelSenha.setBounds(284, 315, 50, 15);
 		textFieldSenha = new JPasswordField();
 		textFieldSenha.setBounds(337, 315, 90, 25);
 		btnLogin = new JButton("Conectar-se");
@@ -65,7 +68,7 @@ public class FrmLogin {
 		});
 		btnLogin.setSize(143, 30);
 		btnLogin.setLocation(284, 355);
-		frame.setBounds(100, 100, 720, 540);
+		frame.setBounds(200, 100, 720, 540);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(painel);
@@ -94,7 +97,18 @@ public class FrmLogin {
 				
 			}
 		} else {
-			
+			Clientes cliente  = new Clientes();
+			cliente = listaClientes.buscarClientePorCPF(textFieldConta.getText());
+			if (cliente != null) {
+				if (textFieldSenha.getText().equals(cliente.getSenha())) {
+					if (cliente.getSenha().equals("")){
+						cliente.setSenha(textFieldSenha.getText());
+					}
+					FrmConta windowConta = new FrmConta(cliente);
+					windowConta.setVisible(true);
+					frame.setVisible(false);
+				}
+			}
 		}
 		cleanScreen(painel);
 	}

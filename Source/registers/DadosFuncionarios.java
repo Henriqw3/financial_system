@@ -26,13 +26,13 @@ public class DadosFuncionarios {
     
     public boolean excluirFuncionario(Funcionarios funcionario){
         try {
-            this.listaFuncionarios.remove(funcionario);
+        	this.listaFuncionarios.remove(funcionario);
         } catch (Exception e) {
             return false;
         }
         return true;   
     }
-    
+     
     public int quantidadeFuncionarios(){
         return listaFuncionarios.size();
     }
