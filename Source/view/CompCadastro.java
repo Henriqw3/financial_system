@@ -71,7 +71,7 @@ public class CompCadastro {
 		labelSexo.setBounds(487, 65, 43, 15);
 		comboBoxSexo = new JComboBox<String>();
 		comboBoxSexo.setModel(new DefaultComboBoxModel(EnumSexo.values()));
-		comboBoxSexo.setBounds(533, 60, 42, 24);
+		comboBoxSexo.setBounds(533, 60, 50, 24);
 		labelEstadoCivil = new JLabel("Estado Civil");
 		labelEstadoCivil.setBounds(50, 65, 89, 15);
 		comboBoxEstadoCivil = new JComboBox<String>();

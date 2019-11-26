@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -9,7 +8,6 @@ import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -27,7 +25,6 @@ public class FrmFuncionarios {
 	private DadosFuncionarios listaFuncionarios = new DadosFuncionarios();
 	private CompCadastro vC = new CompCadastro();
 	private CompConsulta vP = new CompConsulta();
-	private JFrame frame;
 	private JTabbedPane tabbedPane;
 	private JPanel consulta;
 	private JPanel cadastro;
@@ -41,25 +38,15 @@ public class FrmFuncionarios {
 	private JComboBox<String> comboBoxCargo;
 	private JLabel labelSalario;
 	private JTextField textFieldSalario;
-	
 	private JButton btnCadastrar;
 	private JButton btnRemover;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrmFuncionarios window = new FrmFuncionarios();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	
+	public JTabbedPane getFuncionariosView() {
+		return tabbedPane;
 	}
 
 	public FrmFuncionarios() {
-		initialize();
+		initialize();	
 	}
 
 	private void cleanScreen(JPanel container){
@@ -73,7 +60,6 @@ public class FrmFuncionarios {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize() {
-		frame = new JFrame("Financial System - CADASTRO FUNCIONÁRIOS");
 		tabbedPane = new JTabbedPane();
 		btnCadastrar = new JButton("Cadastrar");
 		labelNumCTPS = new JLabel("Número CTPS");
@@ -88,12 +74,12 @@ public class FrmFuncionarios {
 		labelUFCTPS.setBounds(455, 170, 60, 15);
 		comboBoxUFCTPS = new JComboBox<String>();
 		comboBoxUFCTPS.setModel(new DefaultComboBoxModel(EnumEstado.values()));
-		comboBoxUFCTPS.setBounds(520, 165, 62, 24);
+		comboBoxUFCTPS.setBounds(520, 165, 72, 24);
 		labelCargo = new JLabel("Cargo");
-		labelCargo.setBounds(592, 170, 46, 15);
+		labelCargo.setBounds(602, 170, 46, 15);
 		comboBoxCargo = new JComboBox<String>();
 		comboBoxCargo.setModel(new DefaultComboBoxModel(EnumCargos.values()));
-		comboBoxCargo.setBounds(643, 165, 140, 24);
+		comboBoxCargo.setBounds(653, 165, 130, 24);
 		labelSalario = new JLabel("Salário");
 		labelSalario.setBounds(793, 170, 50, 15);
 		textFieldSalario = new JTextField();
@@ -111,10 +97,6 @@ public class FrmFuncionarios {
 				btnRemoverActionPerformed(arg0);
 			}
 		});
-		frame.setBounds(100, 100, 1024, 480);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		
 		cadastro = vC.getCadastro();
 		cadastro.add(btnCadastrar);
 		cadastro.add(btnRemover);
@@ -130,7 +112,6 @@ public class FrmFuncionarios {
 		cadastro.add(textFieldSalario);
 		
 		consulta = vP.getConsulta();
-		frame.add(tabbedPane);
 		tabbedPane.add(cadastro);
 		tabbedPane.add(consulta);
 		tabbedPane.setTitleAt(0, "Dados Pessoais");

@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import model.Administrador;
 import model.Clientes;
@@ -44,6 +46,13 @@ public class FrmLogin {
 
 	public FrmLogin() {
 		initialize();
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager.getSystemLookAndFeelClassName();
+			SwingUtilities.updateComponentTreeUI(frame);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void initialize() {
@@ -51,7 +60,7 @@ public class FrmLogin {
 		painel = new JPanel();
 		logo = new JLabel();
 		logo.setBounds(260, 40, 200, 200);
-		logo.setIcon(new ImageIcon("/home/breno/financial_system/Source/view/logo.png"));
+		logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "/Source/view/logo.png"));
 		labelConta = new JLabel("Conta");
 		labelConta.setBounds(284, 285, 43, 15);
 		textFieldConta = new JTextField();
@@ -94,7 +103,9 @@ public class FrmLogin {
 		Administrador administrador = new Administrador();
 		if (textFieldConta.getText().equals(administrador.getUsuario())) {
 			if (textFieldSenha.getText().equals(administrador.getSenha())) {
-				
+				TelaAdministrador windowADM = new TelaAdministrador();
+				windowADM.setVisible(true);
+				frame.setVisible(false);
 			}
 		} else {
 			Clientes cliente  = new Clientes();

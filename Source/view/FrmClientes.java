@@ -1,13 +1,11 @@
 package view;
 
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -23,7 +21,6 @@ public class FrmClientes {
 	private DadosClientes listaClientes = new DadosClientes();
 	private CompCadastro vC = new CompCadastro();
 	private CompConsulta vP = new CompConsulta();
-	private JFrame frame;
 	private JTabbedPane tabbedPane;
 	private JPanel consulta;
 	private JPanel cadastro;
@@ -32,23 +29,14 @@ public class FrmClientes {
 	private JButton btnCadastrar;
 	private JButton btnRemover;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrmClientes window = new FrmClientes();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public FrmClientes() {
 		initialize();
 	}
 
+	public JTabbedPane getClientesView() {
+		return tabbedPane;
+	}
+	
 	private void cleanScreen(JPanel container){
         Component components[] = container.getComponents();
         for(Component component: components){
@@ -59,7 +47,6 @@ public class FrmClientes {
     }
 	
 	private void initialize() {
-		frame = new JFrame("Financial System - CADASTRO CLIENTES");
 		tabbedPane = new JTabbedPane();
 		labelEscolaridade = new JLabel("Escolaridade");
 		labelEscolaridade.setBounds(745, 135, 100, 15);
@@ -74,9 +61,6 @@ public class FrmClientes {
 		});
 		btnRemover = new JButton("Remover");
 		btnRemover.setBounds(522, 310, 150, 50);
-		frame.setBounds(100, 100, 1024, 480);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
 		cadastro = vC.getCadastro();
 		consulta = vP.getConsulta();
 		cadastro.add(labelEscolaridade);
@@ -84,7 +68,6 @@ public class FrmClientes {
 		cadastro.add(btnCadastrar);
 		cadastro.add(btnRemover);
 		vC.getTextFieldComplemento().setSize(180, 24);
-		frame.add(tabbedPane);
 		tabbedPane.add(cadastro);
 		tabbedPane.add(consulta);
 		tabbedPane.setTitleAt(0, "Dados Pessoais");
