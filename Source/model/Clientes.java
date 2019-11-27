@@ -7,17 +7,15 @@ public class Clientes extends Associados {
 	
 	private String escolaridade;
 	private Conta[] contas = new Conta[3];
-        
-        public Clientes(){//construtores necessários caso set alternativo não inicializado juntamente!!!!!!!!!
-            super();
-        }
-        
+	private String senha = "";
+
 	public Clientes(String nome, String cpf, Date dataNascimento, Character sexo, String rg, String estadoCivil,
-			Agencia agencia, Endereco endereco, String escolaridade, Conta[] contas) {
+			Agencia agencia, Endereco endereco, String escolaridade) {
 		super(nome, cpf, dataNascimento, sexo, rg, estadoCivil, agencia, endereco);
-		setContas(contas);
 		setEscolaridade(escolaridade);
 	}
+
+	public Clientes() {}
 
 	public Conta[] getContas() {
 		return contas;
@@ -35,6 +33,14 @@ public class Clientes extends Associados {
 		this.escolaridade = escolaridade;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
 	public String verDados() {
 		return "Clientes [escolaridade=" + escolaridade + ", contas=" + Arrays.toString(contas) + ", getAgencia()="
 				+ getAgencia() + ", getEndereco()=" + getEndereco() + ", getNome()=" + getNome() + ", getCpf()="

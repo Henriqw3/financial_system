@@ -26,18 +26,26 @@ public class DadosFuncionarios {
     
     public boolean excluirFuncionario(Funcionarios funcionario){
         try {
-            this.listaFuncionarios.remove(funcionario);
+        	this.listaFuncionarios.remove(funcionario);
         } catch (Exception e) {
             return false;
         }
         return true;   
     }
-    
+     
     public int quantidadeFuncionarios(){
         return listaFuncionarios.size();
     }
     
-    public Funcionarios buscarFuncionarioPorNome(String nome) {
+    public List<Funcionarios> getListaFuncionarios() {
+		return listaFuncionarios;
+	}
+
+	public void setListaFuncionarios(List<Funcionarios> listaFuncionarios) {
+		this.listaFuncionarios = listaFuncionarios;
+	}
+
+	public Funcionarios buscarFuncionarioPorNome(String nome) {
     	return listaFuncionarios.stream().filter(funcionario -> funcionario.getNome().equals(nome)).findAny().orElse(null);
     }
     

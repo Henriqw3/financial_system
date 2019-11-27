@@ -28,3 +28,8 @@ hs_err_pid*
 project/.classpath
 project/.project
 project/.vscode/
+Source/view/Frmcliente.form
+Source/view/Frmconta.form
+Source/view/Frmlogin.form
+Source/view/FrmFuncionarios.form
+

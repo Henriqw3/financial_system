@@ -12,11 +12,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import model.Administrador;
+import model.Clientes;
+import registers.DadosClientes;
 
 public class FrmLogin {
 
+	private DadosClientes listaClientes = new DadosClientes();
 	private JFrame frame;
 	private JPanel painel;
 	private JButton btnLogin;
@@ -41,6 +46,13 @@ public class FrmLogin {
 
 	public FrmLogin() {
 		initialize();
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager.getSystemLookAndFeelClassName();
+			SwingUtilities.updateComponentTreeUI(frame);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void initialize() {
@@ -48,13 +60,13 @@ public class FrmLogin {
 		painel = new JPanel();
 		logo = new JLabel();
 		logo.setBounds(260, 40, 200, 200);
-		logo.setIcon(new ImageIcon("/home/breno/Workspace/financial_system/Source/view/logo.png"));
+		logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "/Source/view/logo.png"));
 		labelConta = new JLabel("Conta");
 		labelConta.setBounds(284, 285, 43, 15);
 		textFieldConta = new JTextField();
 		textFieldConta.setBounds(337, 285, 90, 25);
 		labelSenha = new JLabel("Senha");
-		labelSenha.setBounds(284, 315, 43, 15);
+		labelSenha.setBounds(284, 315, 50, 15);
 		textFieldSenha = new JPasswordField();
 		textFieldSenha.setBounds(337, 315, 90, 25);
 		btnLogin = new JButton("Conectar-se");
@@ -65,7 +77,7 @@ public class FrmLogin {
 		});
 		btnLogin.setSize(143, 30);
 		btnLogin.setLocation(284, 355);
-		frame.setBounds(100, 100, 720, 540);
+		frame.setBounds(200, 100, 720, 540);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(painel);
@@ -86,15 +98,28 @@ public class FrmLogin {
         }
     }
 	
+	@SuppressWarnings("deprecation")
 	private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {
 		Administrador administrador = new Administrador();
 		if (textFieldConta.getText().equals(administrador.getUsuario())) {
-//			if (textFieldSenha.getPassword().equals(administrador.getSenha())) {
-				Frmcliente windowAdministracao = new Frmcliente();
-				windowAdministracao.setVisible(true);
-				this.frame.setVisible(false);
-//			}
+			if (textFieldSenha.getText().equals(administrador.getSenha())) {
+				TelaAdministrador windowADM = new TelaAdministrador();
+				windowADM.setVisible(true);
+				frame.setVisible(false);
+			}
 		} else {
+			Clientes cliente  = new Clientes();
+			cliente = listaClientes.buscarClientePorCPF(textFieldConta.getText());
+			if (cliente != null) {
+				if (textFieldSenha.getText().equals(cliente.getSenha())) {
+					if (cliente.getSenha().equals("")){
+						cliente.setSenha(textFieldSenha.getText());
+					}
+					FrmConta windowConta = new FrmConta(cliente);
+					windowConta.setVisible(true);
+					frame.setVisible(false);
+				}
+			}
 		}
 		cleanScreen(painel);
 	}
