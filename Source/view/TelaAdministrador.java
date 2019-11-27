@@ -43,7 +43,6 @@ public class TelaAdministrador {
 		frame = new JFrame("Financial System - ADMINISTRADOR");
 		clientesPane = frmClientes.getClientesView();
 		funcionariosPane = frmFuncionarios.getFuncionariosView();
-		
 		frame.setBounds(100, 100, 1024, 480);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);

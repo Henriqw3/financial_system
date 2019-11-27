@@ -31,7 +31,10 @@ public class DadosClientes {
         return true;   
     }
     
-    public int quantidadeClientes(){
+    public List<Clientes> getListaClientes() {
+		return listaClientes;
+	}
+	public int quantidadeClientes(){
         return listaClientes.size();
     }
     

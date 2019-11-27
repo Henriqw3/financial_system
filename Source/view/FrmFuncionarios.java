@@ -11,7 +11,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import enumeradores.EnumCargos;
 import enumeradores.EnumEstado;
@@ -40,13 +42,15 @@ public class FrmFuncionarios {
 	private JTextField textFieldSalario;
 	private JButton btnCadastrar;
 	private JButton btnRemover;
+	private JTable tableConsulta;
 	
 	public JTabbedPane getFuncionariosView() {
 		return tabbedPane;
 	}
-
+	
 	public FrmFuncionarios() {
-		initialize();	
+		initialize();
+		loadTable(listaFuncionarios);
 	}
 
 	private void cleanScreen(JPanel container){
@@ -61,6 +65,7 @@ public class FrmFuncionarios {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize() {
 		tabbedPane = new JTabbedPane();
+		tableConsulta = new JTable();
 		btnCadastrar = new JButton("Cadastrar");
 		labelNumCTPS = new JLabel("Número CTPS");
 		labelNumCTPS.setBounds(50, 170, 100, 15);
@@ -112,10 +117,34 @@ public class FrmFuncionarios {
 		cadastro.add(textFieldSalario);
 		
 		consulta = vP.getConsulta();
+		tableConsulta = vP.getTabelaConsulta();
+		tableConsulta.setModel(new javax.swing.table.DefaultTableModel(
+	            new Object [][] {
+	            	
+	            },
+	            new String [] {
+	                "Nome", "CPF", "CEP", "Agência", "Cargo"
+	            }
+	    ));
 		tabbedPane.add(cadastro);
 		tabbedPane.add(consulta);
 		tabbedPane.setTitleAt(0, "Dados Pessoais");
 		tabbedPane.setTitleAt(1, "Consulta");
+	}
+	
+	private void loadTable(DadosFuncionarios funcionarios) {
+		DefaultTableModel dados = (DefaultTableModel)tableConsulta.getModel();
+		dados.setNumRows(0);
+		for(Funcionarios funcionario : funcionarios.getListaFuncionarios()) {
+			dados.addRow(new Object [] {
+					funcionario.getNome(),
+					funcionario.getCpf(),
+					funcionario.getEndereco().getCep(),
+					funcionario.getAgencia(),
+					funcionario.getCargoEmpresa()
+			});
+		}
+		tableConsulta.setModel(dados);
 	}
 	
 	private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,6 +163,7 @@ public class FrmFuncionarios {
 			
 			listaFuncionarios.adicionarFuncionario(funcionario);
 			cleanScreen(cadastro);
+			loadTable(listaFuncionarios);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

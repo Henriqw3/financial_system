@@ -37,7 +37,15 @@ public class DadosFuncionarios {
         return listaFuncionarios.size();
     }
     
-    public Funcionarios buscarFuncionarioPorNome(String nome) {
+    public List<Funcionarios> getListaFuncionarios() {
+		return listaFuncionarios;
+	}
+
+	public void setListaFuncionarios(List<Funcionarios> listaFuncionarios) {
+		this.listaFuncionarios = listaFuncionarios;
+	}
+
+	public Funcionarios buscarFuncionarioPorNome(String nome) {
     	return listaFuncionarios.stream().filter(funcionario -> funcionario.getNome().equals(nome)).findAny().orElse(null);
     }
     

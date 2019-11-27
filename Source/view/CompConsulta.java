@@ -1,6 +1,8 @@
 package view;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -12,14 +14,32 @@ public class CompConsulta {
 	private JLabel lblCpf;
 	private JTextField txtNomeConsulta;
 	private JTextField txtCpfConsulta;
+	private JScrollPane tableScroll;
+	private JTable table;
 	public CompConsulta() {
 		initialize();
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
+	public JTable getTabelaConsulta() {
+		return table;
+	}
+	
 	private void initialize() {
+		tableScroll = new JScrollPane();
+		tableScroll.setBounds(50, 70, 924, 280);
+		table = new JTable();
+		table.setModel(new javax.swing.table.DefaultTableModel(
+	            new Object [][] {
+
+	            },
+	            new String [] {
+	                "Nome", "CPF", "CEP", "Agência"
+	            }
+	    ));
+		table.getTableHeader().setEnabled(false);
+		table.setEnabled(false);
+		tableScroll.setViewportView(table);
+		
 		consulta = new JPanel();		
 		consulta.setLayout(null);
 		
@@ -44,6 +64,7 @@ public class CompConsulta {
 		JButton btnConsulta = new JButton("Procurar");
 		btnConsulta.setBounds(824, 25, 150, 24);
 		consulta.add(btnConsulta);
+		consulta.add(tableScroll);
 	}
 
 	public JPanel getConsulta() {
