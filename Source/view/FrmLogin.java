@@ -60,7 +60,8 @@ public class FrmLogin {
 		painel = new JPanel();
 		logo = new JLabel();
 		logo.setBounds(260, 40, 200, 200);
-		logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "/Source/view/logo.png"));
+		logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "/view/logo.png"));
+		System.out.println(System.getProperty("user.dir"));
 		labelConta = new JLabel("Conta");
 		labelConta.setBounds(284, 285, 43, 15);
 		textFieldConta = new JTextField();
@@ -111,10 +112,10 @@ public class FrmLogin {
 			Clientes cliente  = new Clientes();
 			cliente = listaClientes.buscarClientePorCPF(textFieldConta.getText());
 			if (cliente != null) {
-				if (textFieldSenha.getText().equals(cliente.getSenha())) {
-					if (cliente.getSenha().equals("")){
-						cliente.setSenha(textFieldSenha.getText());
-					}
+				if (cliente.getSenha().equals("")){
+					cliente.setSenha(textFieldSenha.getText());
+				}
+				if (textFieldSenha.getText().equals(cliente.getSenha())) {	
 					FrmConta windowConta = new FrmConta(cliente);
 					windowConta.setVisible(true);
 					frame.setVisible(false);
