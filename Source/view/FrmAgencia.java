@@ -11,10 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import model.Agencia;
 import model.Endereco;
-import model.Gerente;
 import registers.DadosAgencias;
 
 public class FrmAgencia {
@@ -25,6 +25,7 @@ public class FrmAgencia {
 	private JPanel cadastro;
 	private JTextField txtNomeFicticio;
 	private CompEndereco vE = new CompEndereco();
+	private CompConsulta vP = new CompConsulta();
 	private JButton btnCadastrar;
 	private JButton btnRemover;
 	private JPanel endereco;
@@ -50,9 +51,18 @@ public class FrmAgencia {
     }
 	
 	private void initialize() {
-		consulta = new JPanel();
-		consulta.setSize(1024, 480);
-		consulta.setLayout(null);
+		consulta = vP.getConsulta();
+		tableConsulta = vP.getTabelaConsulta();
+		tableConsulta.setModel(new javax.swing.table.DefaultTableModel(
+	            new Object [][] {
+	            	
+	            },
+	            new String [] {
+	                "Número", "Nome Fictício", "Gerente", "Associados", "Contas"
+	            }
+	    ));
+		vP.getLblCpf().setVisible(false);
+		vP.getTxtCpfConsulta().setVisible(false);
 		
 		cadastro = new JPanel();
 		cadastro.setSize(1024, 480);
@@ -104,21 +114,31 @@ public class FrmAgencia {
 	}
 	
 	private void loadTable(DadosAgencias agencias) {
-//		DefaultTableModel dados = (DefaultTableModel)tableConsulta.getModel();
-//		dados.setNumRows(0);
-//		for(Agencia agencia : agencias.getListaAgencias()) {
-//			dados.addRow(new Object [] {
-//			});
-//		}
-//		tableConsulta.setModel(dados);
+		DefaultTableModel dados = (DefaultTableModel)tableConsulta.getModel();
+		dados.setNumRows(0);
+		for(Agencia agencia : agencias.getListaAgencias()) {
+			dados.addRow(new Object [] {
+					agencia.getNumeroAgencia(),
+					agencia.getNomeAgencia(),
+					agencia.getGerenteAgencia().getNome(),
+					agencia.getAssociadosAgencia(),
+					agencia.getContas()
+			});
+		}
+		tableConsulta.setModel(dados);
 	}
 	
 	public void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
-		Endereco endereco = new Endereco(vE.getTextFieldCEP().getText(), 
-				Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
-				 vE.getTextFieldBairro().getText(),  vE.getTextFieldCidade().getText(), 
-				 vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
+		try {
+			Endereco endereco = new Endereco(vE.getTextFieldCEP().getText(), 
+					Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
+					 vE.getTextFieldBairro().getText(),  vE.getTextFieldCidade().getText(), 
+					 vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
 
+//			Agencia agencia = new Agencia(listaAgencias.nextNum(), txtNomeFicticio.getText(), endereco, gerenteAgencia)
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {

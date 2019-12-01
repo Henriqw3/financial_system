@@ -3,6 +3,7 @@ package view;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JButton;
@@ -73,6 +74,11 @@ public class FrmClientes {
 		tableConsulta = vP.getTabelaConsulta();
 		btnRemover = new JButton("Remover");
 		btnRemover.setBounds(522, 310, 150, 50);
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnRemoverActionPerformed(arg0);
+			}
+		});
 		cadastro = vC.getCadastro();
 		consulta = vP.getConsulta();
 		cadastro.add(labelEscolaridade);
@@ -109,7 +115,31 @@ public class FrmClientes {
 					vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
 			
 			Clientes cliente = new Clientes(vC.getTextFieldNomeCadastro().getText(), 
-					vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), new Date(), vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),
+					vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), 
+					new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()), 
+					vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),
+					vC.getTextFieldRG().getText(), vC.getComboBoxEstadoCivil().getSelectedItem().toString(), new Agencia(), endereco, 
+					 textFieldEscolaridade.getText());
+			
+			listaClientes.adicionarCliente(cliente);
+			cleanScreen(cadastro);
+			loadTable(listaClientes);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {
+		try {
+			Endereco endereco = new Endereco( vE.getTextFieldCEP().getText(), 
+					Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
+					vE.getTextFieldBairro().getText(),  vE.getTextFieldCidade().getText(), 
+					vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
+			
+			Clientes cliente = new Clientes(vC.getTextFieldNomeCadastro().getText(), 
+					vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), 
+					new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()), 
+					vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),
 					vC.getTextFieldRG().getText(), vC.getComboBoxEstadoCivil().getSelectedItem().toString(), new Agencia(), endereco, 
 					 textFieldEscolaridade.getText());
 			

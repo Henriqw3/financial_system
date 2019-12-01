@@ -14,6 +14,15 @@ public class DadosAgencias {
         listaAgencias = new ArrayList<>();
     }
     
+    public int nextNum() {
+    	int higher =  listaAgencias.isEmpty() ?  1 : listaAgencias.get(0).getNumeroAgencia();
+    	for(Agencia agencia : listaAgencias) {
+    		if (agencia.getNumeroAgencia() > higher)
+    				higher = agencia.getNumeroAgencia();
+    	}
+    	return higher;
+    }
+    
     public boolean adicionarAgencia(Agencia agencia){
         try {
             this.listaAgencias.add(agencia);
