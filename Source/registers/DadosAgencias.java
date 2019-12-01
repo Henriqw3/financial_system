@@ -2,44 +2,41 @@ package registers;
 
 import java.util.ArrayList;
 import model.Agencia;
+import model.Clientes;
+
 import java.util.List;
 
 public class DadosAgencias {
-    
-    //ArrayList aglist;
-    
-    List<Agencia> aglist;//lista de obj Agencia
+   
+    List<Agencia> listaAgencias;
     
     public DadosAgencias(){
-        
-      //aglist = new ArrayList();        
-        aglist = new ArrayList<>();
+        listaAgencias = new ArrayList<>();
     }
     
-    public boolean addAgencia(Agencia cl){
+    public boolean adicionarAgencia(Agencia agencia){
         try {
-            this.aglist.add(cl);
+            this.listaAgencias.add(agencia);
         } catch (Exception e) {
             return false;
         }
         return true;
     }
     
-    public boolean excluirAgencia(Agencia cl){//nome ou cpf
+    public boolean excluirAgencia(Agencia agencia){
         try {
-            this.aglist.remove(cl);
+            this.listaAgencias.remove(agencia);
         } catch (Exception e) {
             return false;
         }
         return true;   
     }
     
-    public int qtdAgencia(){
-        return aglist.size();
+    public int quantidadeAgencia(){
+        return listaAgencias.size();
     }
     
-    // BuscarClientepor nome
-    // BuscarCliente por cpf
-    // Listar Clientes
-    // Alterar Cliente?
+    public List<Agencia> getListaAgencias() {
+  		return listaAgencias;
+  	}
 }

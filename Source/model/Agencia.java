@@ -1,7 +1,7 @@
 package model;
 
 public class Agencia {
-	private String numeroAgencia;
+	private Integer numeroAgencia;
 	private String nomeAgencia;
 	private Endereco enderecoAgencia;
 	private Associados[] associadosAgencia;
@@ -9,9 +9,8 @@ public class Agencia {
 	private Gerente gerenteAgencia;
 	
 	public Agencia() {}
-	public Agencia(String numeroAgencia, String nomeAgencia, Endereco enderecoAgencia, Associados[] associadosAgencia,
-			Conta[] contas, Gerente gerenteAgencia) {
-              //super();
+	public Agencia(Integer numeroAgencia, String nomeAgencia, 
+			Endereco enderecoAgencia, Gerente gerenteAgencia) {
 		setAssociadosAgencia(associadosAgencia);
 		setContas(contas);
 		setEnderecoAgencia(enderecoAgencia);
@@ -28,11 +27,11 @@ public class Agencia {
 		this.contas = contas;
 	}
 
-	public String getNumeroAgencia() {
+	public Integer getNumeroAgencia() {
 		return numeroAgencia;
 	}
 
-	public void setNumeroAgencia(String numeroAgencia) {
+	public void setNumeroAgencia(Integer numeroAgencia) {
 		this.numeroAgencia = numeroAgencia;
 	}
 

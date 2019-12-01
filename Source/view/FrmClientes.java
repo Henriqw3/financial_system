@@ -23,8 +23,10 @@ public class FrmClientes {
 	private DadosClientes listaClientes = new DadosClientes();
 	private CompCadastro vC = new CompCadastro();
 	private CompConsulta vP = new CompConsulta();
+	private CompEndereco vE = new CompEndereco();
 	private JTabbedPane tabbedPane;
 	private JPanel consulta;
+	private JPanel endereco;
 	private JPanel cadastro;
 	private JLabel labelEscolaridade;
 	private JTextField textFieldEscolaridade;
@@ -55,6 +57,7 @@ public class FrmClientes {
     }
 	
 	private void initialize() {
+		endereco = vE.getEndereco();
 		tabbedPane = new JTabbedPane();
 		labelEscolaridade = new JLabel("Escolaridade");
 		labelEscolaridade.setBounds(745, 135, 100, 15);
@@ -76,7 +79,8 @@ public class FrmClientes {
 		cadastro.add(textFieldEscolaridade);
 		cadastro.add(btnCadastrar);
 		cadastro.add(btnRemover);
-		vC.getTextFieldComplemento().setSize(180, 24);
+		cadastro.add(endereco);
+		vE.getTextFieldComplemento().setSize(180, 24);
 		tabbedPane.add(cadastro);
 		tabbedPane.add(consulta);
 		tabbedPane.setTitleAt(0, "Dados Pessoais");
@@ -99,10 +103,10 @@ public class FrmClientes {
 	
 	private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
 		try {
-			Endereco endereco = new Endereco( vC.getTextFieldCEP().getText(), 
-					Integer.parseInt( vC.getTextFieldNumero().getText()),  vC.getTextFieldRua().getText(),
-					vC.getTextFieldBairro().getText(),  vC.getTextFieldCidade().getText(), 
-					vC.getComboBoxEstado().getSelectedItem().toString(),  vC.getTextFieldComplemento().getText());
+			Endereco endereco = new Endereco( vE.getTextFieldCEP().getText(), 
+					Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
+					vE.getTextFieldBairro().getText(),  vE.getTextFieldCidade().getText(), 
+					vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
 			
 			Clientes cliente = new Clientes(vC.getTextFieldNomeCadastro().getText(), 
 					vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), new Date(), vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),

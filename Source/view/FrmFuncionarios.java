@@ -27,8 +27,10 @@ public class FrmFuncionarios {
 	private DadosFuncionarios listaFuncionarios = new DadosFuncionarios();
 	private CompCadastro vC = new CompCadastro();
 	private CompConsulta vP = new CompConsulta();
+	private CompEndereco vE = new CompEndereco();
 	private JTabbedPane tabbedPane;
 	private JPanel consulta;
+	private JPanel endereco;
 	private JPanel cadastro;
 	private JLabel labelNumCTPS;
 	private JTextField textFieldNumCTPS;
@@ -64,6 +66,7 @@ public class FrmFuncionarios {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize() {
+		endereco = vE.getEndereco();
 		tabbedPane = new JTabbedPane();
 		tableConsulta = new JTable();
 		btnCadastrar = new JButton("Cadastrar");
@@ -115,6 +118,7 @@ public class FrmFuncionarios {
 		cadastro.add(comboBoxCargo);
 		cadastro.add(labelSalario);
 		cadastro.add(textFieldSalario);
+		cadastro.add(endereco);
 		
 		consulta = vP.getConsulta();
 		tableConsulta = vP.getTabelaConsulta();
@@ -149,10 +153,10 @@ public class FrmFuncionarios {
 	
 	private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
 		try {
-			Endereco endereco = new Endereco(vC.getTextFieldCEP().getText(), 
-					Integer.parseInt( vC.getTextFieldNumero().getText()),  vC.getTextFieldRua().getText(),
-					 vC.getTextFieldBairro().getText(),  vC.getTextFieldCidade().getText(), 
-					 vC.getComboBoxEstado().getSelectedItem().toString(),  vC.getTextFieldComplemento().getText());
+			Endereco endereco = new Endereco(vE.getTextFieldCEP().getText(), 
+					Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
+					 vE.getTextFieldBairro().getText(),  vE.getTextFieldCidade().getText(), 
+					 vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
 			
 			Funcionarios funcionario = new Funcionarios(vC.getTextFieldNomeCadastro().getText(), 
 					 vC.getTextFieldCPFCadastro().getText(), new Date(),
@@ -171,10 +175,10 @@ public class FrmFuncionarios {
 	
 	private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {
 		try {
-			Endereco endereco = new Endereco(vC.getTextFieldCEP().getText(), 
-					Integer.parseInt( vC.getTextFieldNumero().getText()),  vC.getTextFieldRua().getText(),
-					 vC.getTextFieldBairro().getText(),  vC.getTextFieldCidade().getText(), 
-					 vC.getComboBoxEstado().getSelectedItem().toString(),  vC.getTextFieldComplemento().getText());
+			Endereco endereco = new Endereco(vE.getTextFieldCEP().getText(), 
+					Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
+					 vE.getTextFieldBairro().getText(),  vE.getTextFieldCidade().getText(), 
+					 vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
 			
 			Funcionarios funcionario = new Funcionarios(vC.getTextFieldNomeCadastro().getText(), 
 					 vC.getTextFieldCPFCadastro().getText(), new Date(),
