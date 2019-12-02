@@ -16,6 +16,10 @@ public class Funcionarios extends Associados {
 		setSalario(salario);
 	}
 
+	public Funcionarios() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getCtps() {
 		return ctps;
 	}

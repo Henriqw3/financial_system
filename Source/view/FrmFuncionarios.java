@@ -3,9 +3,10 @@ package view;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.SimpleFormatter;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -18,17 +19,18 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 
 import enumeradores.EnumEstado;
-import model.Agencia;
 import model.Endereco;
 import model.Funcionarios;
 import model.Gerente;
+import registers.DadosAgencias;
 import registers.DadosFuncionarios;
 
 public class FrmFuncionarios {
 
-	private DadosFuncionarios listaFuncionarios = new DadosFuncionarios();
 	private CompCadastro vC = new CompCadastro();
 	private CompConsulta vP = new CompConsulta();
 	private CompEndereco vE = new CompEndereco();
@@ -59,8 +61,8 @@ public class FrmFuncionarios {
 		return tabbedPane;
 	}
 	
-	public FrmFuncionarios() {
-		initialize();
+	public FrmFuncionarios(DadosFuncionarios listaFuncionarios, DadosAgencias listaAgencias) {
+		initialize(listaFuncionarios, listaAgencias);
 		loadTable(listaFuncionarios);
 	}
 
@@ -74,8 +76,7 @@ public class FrmFuncionarios {
     }
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private void initialize() {
-		endereco = vE.getEndereco();
+	private void initialize(DadosFuncionarios listaFuncionarios, DadosAgencias listaAgencias) {
 		tabbedPane = new JTabbedPane();
 		tableConsulta = new JTable();
 		
@@ -142,7 +143,7 @@ public class FrmFuncionarios {
 		btnCadastrar.setBounds(362, 310, 150, 50);
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				btnCadastrarActionPerformed(arg0);
+				btnCadastrarActionPerformed(arg0, listaFuncionarios, listaAgencias);
 			}
 		});
 		
@@ -150,13 +151,38 @@ public class FrmFuncionarios {
 		btnRemover.setBounds(522, 310, 150, 50);
 		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				btnRemoverActionPerformed(arg0);
+				btnRemoverActionPerformed(arg0, listaFuncionarios, listaAgencias);
 			}
 		});
 		cadastro = vC.getCadastro();
+		vC.getComboBoxAgencia().setModel(new DefaultComboBoxModel<String>(listaAgencias.getListaNomeAgencias()));
+		vC.getComboBoxAgencia().addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}
+			
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				vC.getComboBoxAgencia().setModel(new DefaultComboBoxModel<String>(listaAgencias.getListaNomeAgencias()));
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {}
+		});
 	
 		cadastro.add(lblDataIngresso);
 		cadastro.add(txtDataIngresso);
+		try {
+			txtDataIngresso.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("##/##/####")));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		cadastro.add(lblFormacao);
 		cadastro.add(boxFormacao);
 		cadastro.add(txtCargo);
@@ -172,6 +198,7 @@ public class FrmFuncionarios {
 		cadastro.add(comboBoxCargo);
 		cadastro.add(labelSalario);
 		cadastro.add(textFieldSalario);
+		endereco = vE.getEndereco();
 		cadastro.add(endereco);
 		
 		consulta = vP.getConsulta();
@@ -196,16 +223,19 @@ public class FrmFuncionarios {
 		for(Funcionarios funcionario : funcionarios.getListaFuncionarios()) {
 			dados.addRow(new Object [] {
 					funcionario.getNome(),
-					funcionario.getCpf(),
+					funcionario.getCpf().substring(0, 3) + "." + 
+					funcionario.getCpf().substring(3, 6) + "." + 
+					funcionario.getCpf().substring(6, 9) + "-" +
+					funcionario.getCpf().substring(9, 11),
 					funcionario.getEndereco().getCep(),
-					funcionario.getAgencia(),
+					funcionario.getAgencia().getNomeAgencia(),
 					funcionario.getCargoEmpresa()
 			});
 		}
 		tableConsulta.setModel(dados);
 	}
 	
-	private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
+	private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt, DadosFuncionarios listaFuncionarios, DadosAgencias listaAgencias) {
 		try {
 			Endereco endereco = new Endereco(vE.getTextFieldCEP().getText(), 
 					Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
@@ -214,19 +244,22 @@ public class FrmFuncionarios {
 			
 			if (comboBoxCargo.getSelectedItem().toString().equals("Outro")) {
 				Funcionarios funcionario = new Funcionarios(vC.getTextFieldNomeCadastro().getText(), 
-						 vC.getTextFieldCPFCadastro().getText(), new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()),
+						 vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()),
 						 vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),  vC.getTextFieldRG().getText(),
-						 vC.getComboBoxEstadoCivil().getSelectedItem().toString(), new Agencia(), endereco, 
-						textFieldNumCTPS.getText() + " " + textFieldSerieCTPS.getText() + " " + comboBoxUFCTPS.getSelectedItem().toString().charAt(0),
-						txtCargo.getText(), Double.parseDouble(textFieldSalario.getText()));
+						 vC.getComboBoxEstadoCivil().getSelectedItem().toString(), 
+						 listaAgencias.buscarAgenciaPorNome(vC.getComboBoxAgencia().getSelectedItem().toString()), 
+						 endereco, textFieldNumCTPS.getText() + " " + textFieldSerieCTPS.getText() + " " + 
+						 comboBoxUFCTPS.getSelectedItem().toString().charAt(0),
+						 txtCargo.getText(), Double.parseDouble(textFieldSalario.getText()));
 				
 				listaFuncionarios.adicionarFuncionario(funcionario);
 			} else {
 				Gerente gerente = new Gerente(vC.getTextFieldNomeCadastro().getText(), 
-						vC.getTextFieldCPFCadastro().getText(), new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()), 
+						vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()), 
 						vC.getComboBoxSexo().toString().charAt(0), vC.getTextFieldRG().getText(),
-						vC.getComboBoxEstadoCivil().toString(), new Agencia(), endereco,
-						textFieldNumCTPS.getText() + " " + textFieldSerieCTPS.getText() + " " 
+						vC.getComboBoxEstadoCivil().toString(), 
+						listaAgencias.buscarAgenciaPorNome(vC.getComboBoxAgencia().getSelectedItem().toString()), 
+						endereco, textFieldNumCTPS.getText() + " " + textFieldSerieCTPS.getText() + " " 
 						+ comboBoxUFCTPS.getSelectedItem().toString(), 
 						Double.parseDouble(textFieldSalario.getText()),
 						new SimpleDateFormat("dd/MM/yyyy").parse(txtDataIngresso.getText()), 
@@ -234,13 +267,14 @@ public class FrmFuncionarios {
 				listaFuncionarios.adicionarFuncionario(gerente);
 			}
 			cleanScreen(cadastro);
+			cleanScreen(this.endereco);
 			loadTable(listaFuncionarios);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {
+	private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt, DadosFuncionarios listaFuncionarios, DadosAgencias listaAgencias) {
 		try {
 			Endereco endereco = new Endereco(vE.getTextFieldCEP().getText(), 
 					Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
@@ -249,19 +283,22 @@ public class FrmFuncionarios {
 			
 			if (comboBoxCargo.getSelectedItem().toString().equals("Outro")) {
 				Funcionarios funcionario = new Funcionarios(vC.getTextFieldNomeCadastro().getText(), 
-						 vC.getTextFieldCPFCadastro().getText(), new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()),
+						 vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()),
 						 vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),  vC.getTextFieldRG().getText(),
-						 vC.getComboBoxEstadoCivil().getSelectedItem().toString(), new Agencia(), endereco, 
-						textFieldNumCTPS.getText() + " " + textFieldSerieCTPS.getText() + " " + comboBoxUFCTPS.getSelectedItem().toString().charAt(0),
+						 vC.getComboBoxEstadoCivil().getSelectedItem().toString(), 
+						 listaAgencias.buscarAgenciaPorNome(vC.getComboBoxAgencia().getSelectedItem().toString())
+						 , endereco, textFieldNumCTPS.getText() + " " + textFieldSerieCTPS.getText() + " " + 
+						 comboBoxUFCTPS.getSelectedItem().toString().charAt(0),
 						txtCargo.getText(), Double.parseDouble(textFieldSalario.getText()));
 				
 				listaFuncionarios.excluirFuncionario(funcionario);
 			} else {
 				Gerente gerente = new Gerente(vC.getTextFieldNomeCadastro().getText(), 
-						vC.getTextFieldCPFCadastro().getText(), new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()), 
+						vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()), 
 						vC.getComboBoxSexo().toString().charAt(0), vC.getTextFieldRG().getText(),
-						vC.getComboBoxEstadoCivil().toString(), new Agencia(), endereco,
-						textFieldNumCTPS.getText() + " " + textFieldSerieCTPS.getText() + " " 
+						vC.getComboBoxEstadoCivil().toString(), 
+						listaAgencias.buscarAgenciaPorNome(vC.getComboBoxAgencia().getSelectedItem().toString()), 
+						endereco, textFieldNumCTPS.getText() + " " + textFieldSerieCTPS.getText() + " " 
 						+ comboBoxUFCTPS.getSelectedItem().toString(), 
 						Double.parseDouble(textFieldSalario.getText()),
 						new SimpleDateFormat("dd/MM/yyyy").parse(txtDataIngresso.getText()), 
@@ -269,6 +306,7 @@ public class FrmFuncionarios {
 				listaFuncionarios.excluirFuncionario(gerente);
 			}
 			cleanScreen(cadastro);
+			cleanScreen(this.endereco);
 			loadTable(listaFuncionarios);
 		} catch(Exception e) {
 			e.printStackTrace();

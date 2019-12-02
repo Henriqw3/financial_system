@@ -3,7 +3,10 @@ package view;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -15,11 +18,12 @@ import javax.swing.table.DefaultTableModel;
 
 import model.Agencia;
 import model.Endereco;
+import model.Gerente;
 import registers.DadosAgencias;
+import registers.DadosFuncionarios;
 
 public class FrmAgencia {
 	
-	private DadosAgencias listaAgencias = new DadosAgencias();
 	private JTabbedPane tabbedPane;
 	private JPanel consulta;
 	private JPanel cadastro;
@@ -32,8 +36,8 @@ public class FrmAgencia {
 	private JTable tableConsulta;
 	private JComboBox<String> comboBoxGerente;
 	
-	public FrmAgencia() {
-		initialize();
+	public FrmAgencia(DadosAgencias listaAgencias, DadosFuncionarios listaFuncionarios) {
+		initialize(listaAgencias, listaFuncionarios);
 		loadTable(listaAgencias);
 	}
 
@@ -50,7 +54,7 @@ public class FrmAgencia {
         }
     }
 	
-	private void initialize() {
+	private void initialize(DadosAgencias listaAgencias, DadosFuncionarios listaFuncionarios) {
 		consulta = vP.getConsulta();
 		tableConsulta = vP.getTabelaConsulta();
 		tableConsulta.setModel(new javax.swing.table.DefaultTableModel(
@@ -83,13 +87,35 @@ public class FrmAgencia {
 		
 		comboBoxGerente = new JComboBox<String>();
 		comboBoxGerente.setBounds(834, 25, 140, 24);
+		comboBoxGerente.setModel(new DefaultComboBoxModel<String>(listaFuncionarios.getListaGerentes()));
+		comboBoxGerente.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}
+			
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				System.out.println(listaFuncionarios.getListaGerentes());
+				comboBoxGerente.setModel(new DefaultComboBoxModel<String>(listaFuncionarios.getListaGerentes()));
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {}
+		});
+		
 		cadastro.add(comboBoxGerente);
 		
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.setBounds(362, 310, 150, 50);
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				btnCadastrarActionPerformed(arg0);
+				btnCadastrarActionPerformed(arg0, listaAgencias, listaFuncionarios);
 			}
 		});
 		
@@ -97,7 +123,7 @@ public class FrmAgencia {
 		btnRemover.setBounds(522, 310, 150, 50);
 		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				btnRemoverActionPerformed(arg0);
+				btnRemoverActionPerformed(arg0, listaAgencias, listaFuncionarios);
 			}
 		});
 		
@@ -128,25 +154,41 @@ public class FrmAgencia {
 		tableConsulta.setModel(dados);
 	}
 	
-	public void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
+	public void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt,  DadosAgencias listaAgencias, DadosFuncionarios listaFuncionarios) {
 		try {
 			Endereco endereco = new Endereco(vE.getTextFieldCEP().getText(), 
 					Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
 					 vE.getTextFieldBairro().getText(),  vE.getTextFieldCidade().getText(), 
 					 vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
 
-//			Agencia agencia = new Agencia(listaAgencias.nextNum(), txtNomeFicticio.getText(), endereco, gerenteAgencia)
+			Agencia agencia = new Agencia(listaAgencias.nextNum(), txtNomeFicticio.getText(), endereco, 
+					(Gerente) listaFuncionarios.buscarFuncionarioPorNome(comboBoxGerente.getSelectedItem().toString()));
+		
+		listaAgencias.adicionarAgencia(agencia);
+		cleanScreen(cadastro);
+		cleanScreen(this.endereco);
+		loadTable(listaAgencias);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {
-		Endereco endereco = new Endereco(vE.getTextFieldCEP().getText(), 
-				Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
-				 vE.getTextFieldBairro().getText(),  vE.getTextFieldCidade().getText(), 
-				 vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
+	public void btnRemoverActionPerformed(java.awt.event.ActionEvent evt,  DadosAgencias listaAgencias, DadosFuncionarios listaFuncionarios) {
+		try {
+			Endereco endereco = new Endereco(vE.getTextFieldCEP().getText(), 
+					Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
+					 vE.getTextFieldBairro().getText(),  vE.getTextFieldCidade().getText(), 
+					 vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
 
+			Agencia agencia = new Agencia(listaAgencias.nextNum(), txtNomeFicticio.getText(), endereco, 
+					(Gerente) listaFuncionarios.buscarFuncionarioPorNome(comboBoxGerente.getSelectedItem().toString()));
+		
+		listaAgencias.adicionarAgencia(agencia);
 		cleanScreen(cadastro);
+		cleanScreen(this.endereco);
+		loadTable(listaAgencias);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
