@@ -53,4 +53,15 @@ public class DadosFuncionarios {
     	return listaFuncionarios.stream().filter(funcionario -> funcionario.getCpf().equals(cpf)).findAny().orElse(null);
     }
 
+    public String[] getListaGerentes() {
+    	String[] model = new String[listaFuncionarios.size()];
+		int i = 0;
+		for(Funcionarios funcionario : listaFuncionarios) {
+			if (funcionario.getCargoEmpresa().equals("Gerente")) {
+				model[i] = funcionario.getNome();
+				i++;
+			}
+		}
+    	return model;
+    }
 }
