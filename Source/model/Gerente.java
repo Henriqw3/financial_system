@@ -15,6 +15,11 @@ public class Gerente extends Funcionarios {
 		setFormacao(formacao);
 	}
 
+	public Gerente() {
+		// TODO Auto-generated constructor stub
+		super();
+	}
+
 	public Date getDataIngresso() {
 		return dataIngresso;
 	}

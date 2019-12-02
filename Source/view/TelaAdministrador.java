@@ -7,12 +7,19 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import registers.DadosAgencias;
+import registers.DadosClientes;
+import registers.DadosFuncionarios;
+
 public class TelaAdministrador {
 
+	private DadosAgencias listaAgencias = new DadosAgencias();
+	private DadosFuncionarios listaFuncionarios = new DadosFuncionarios();
+	private DadosClientes listaClientes = new DadosClientes();
 	private JFrame frame;
-	private FrmClientes frmClientes = new FrmClientes();
-	private FrmFuncionarios frmFuncionarios = new FrmFuncionarios();
-	private FrmAgencia frmAgencias = new FrmAgencia();
+	private FrmClientes frmClientes = new FrmClientes(listaClientes, listaAgencias);
+	private FrmFuncionarios frmFuncionarios = new FrmFuncionarios(listaFuncionarios, listaAgencias);
+	private FrmAgencia frmAgencias = new FrmAgencia(listaAgencias, listaFuncionarios);
 	private JTabbedPane clientesPane;
 	private JTabbedPane agenciasPane;
 	private JTabbedPane funcionariosPane;

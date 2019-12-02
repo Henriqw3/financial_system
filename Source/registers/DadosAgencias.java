@@ -1,10 +1,11 @@
 package registers;
 
 import java.util.ArrayList;
-import model.Agencia;
-import model.Clientes;
-
 import java.util.List;
+
+import model.Agencia;
+import model.Endereco;
+import model.Gerente;
 
 public class DadosAgencias {
    
@@ -12,15 +13,18 @@ public class DadosAgencias {
     
     public DadosAgencias(){
         listaAgencias = new ArrayList<>();
+        listaAgencias.add(new Agencia(0, "Agência 0", new Endereco(), new Gerente()));
     }
     
     public int nextNum() {
     	int higher =  listaAgencias.isEmpty() ?  1 : listaAgencias.get(0).getNumeroAgencia();
-    	for(Agencia agencia : listaAgencias) {
-    		if (agencia.getNumeroAgencia() > higher)
-    				higher = agencia.getNumeroAgencia();
+    	if (!listaAgencias.isEmpty()) {
+    		for(Agencia agencia : listaAgencias) {
+        		if (agencia.getNumeroAgencia() > higher)
+        				higher = agencia.getNumeroAgencia();
+        	}
     	}
-    	return higher;
+    	return higher + 1;
     }
     
     public boolean adicionarAgencia(Agencia agencia){
@@ -48,4 +52,18 @@ public class DadosAgencias {
     public List<Agencia> getListaAgencias() {
   		return listaAgencias;
   	}
+    
+    public String[] getListaNomeAgencias() {
+    	String[] nomes = new String[listaAgencias.size()];
+    	int i = 0;
+    	for(Agencia agencia : listaAgencias) {
+    		nomes[i] = agencia.getNomeAgencia();
+    		i++;
+    	}
+    	return nomes;
+    }
+    
+    public Agencia buscarAgenciaPorNome(String nome) {
+    	return listaAgencias.stream().filter(agencia -> agencia.getNomeAgencia().equals(nome)).findAny().orElse(null);
+    }
 }

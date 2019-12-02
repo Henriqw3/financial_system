@@ -22,6 +22,10 @@ public class Endereco {
 		setComplemento(complemento);
 	}
 
+	public Endereco() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getComplemento() {
 		return complemento;
 	}

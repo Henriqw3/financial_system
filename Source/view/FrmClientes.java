@@ -3,9 +3,11 @@ package view;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,20 +16,19 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import model.Agencia;
 import model.Clientes;
 import model.Endereco;
+import registers.DadosAgencias;
 import registers.DadosClientes;
 
 public class FrmClientes {
 
-	private DadosClientes listaClientes = new DadosClientes();
 	private CompCadastro vC = new CompCadastro();
 	private CompConsulta vP = new CompConsulta();
 	private CompEndereco vE = new CompEndereco();
 	private JTabbedPane tabbedPane;
 	private JPanel consulta;
-	private JPanel endereco;
+	private JPanel enderecoPanel;
 	private JPanel cadastro;
 	private JLabel labelEscolaridade;
 	private JTextField textFieldEscolaridade;
@@ -35,8 +36,8 @@ public class FrmClientes {
 	private JButton btnRemover;
 	private JTable tableConsulta;
 
-	public FrmClientes() {
-		initialize();
+	public FrmClientes(DadosClientes listaClientes, DadosAgencias listaAgencias) {
+		initialize(listaClientes, listaAgencias);
 		loadTable(listaClientes);
 	}
 
@@ -57,8 +58,8 @@ public class FrmClientes {
         }
     }
 	
-	private void initialize() {
-		endereco = vE.getEndereco();
+	private void initialize(DadosClientes listaClientes, DadosAgencias listaAgencias) {
+		enderecoPanel = vE.getEndereco();
 		tabbedPane = new JTabbedPane();
 		labelEscolaridade = new JLabel("Escolaridade");
 		labelEscolaridade.setBounds(745, 135, 100, 15);
@@ -68,7 +69,7 @@ public class FrmClientes {
 		btnCadastrar.setBounds(362, 310, 150, 50);
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				btnCadastrarActionPerformed(arg0);
+				btnCadastrarActionPerformed(arg0, listaClientes, listaAgencias);
 			}
 		});
 		tableConsulta = vP.getTabelaConsulta();
@@ -76,16 +77,36 @@ public class FrmClientes {
 		btnRemover.setBounds(522, 310, 150, 50);
 		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				btnRemoverActionPerformed(arg0);
+				btnRemoverActionPerformed(arg0, listaClientes,listaAgencias);
 			}
 		});
 		cadastro = vC.getCadastro();
 		consulta = vP.getConsulta();
+		vC.getComboBoxAgencia().setModel(new DefaultComboBoxModel<String>(listaAgencias.getListaNomeAgencias()));
+		vC.getComboBoxAgencia().addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}
+			
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				vC.getComboBoxAgencia().setModel(new DefaultComboBoxModel<String>(listaAgencias.getListaNomeAgencias()));
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {}
+		});
 		cadastro.add(labelEscolaridade);
 		cadastro.add(textFieldEscolaridade);
 		cadastro.add(btnCadastrar);
 		cadastro.add(btnRemover);
-		cadastro.add(endereco);
+		cadastro.add(enderecoPanel);
 		vE.getTextFieldComplemento().setSize(180, 24);
 		tabbedPane.add(cadastro);
 		tabbedPane.add(consulta);
@@ -99,15 +120,18 @@ public class FrmClientes {
 		for(Clientes cliente : clientes.getListaClientes()) {
 			dados.addRow(new Object [] {
 					cliente.getNome(),
-					cliente.getCpf(),
+					cliente.getCpf().substring(0, 3) + "." + 
+					cliente.getCpf().substring(3, 6) + "." + 
+					cliente.getCpf().substring(6, 9) + "-" +
+					cliente.getCpf().substring(9, 11),
 					cliente.getEndereco().getCep(),
-					cliente.getAgencia()
+					cliente.getAgencia().getNomeAgencia()
 			});
 		}
 		tableConsulta.setModel(dados);
 	}
 	
-	private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
+	private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt, DadosClientes listaClientes, DadosAgencias listaAgencias) {
 		try {
 			Endereco endereco = new Endereco( vE.getTextFieldCEP().getText(), 
 					Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
@@ -118,18 +142,20 @@ public class FrmClientes {
 					vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), 
 					new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()), 
 					vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),
-					vC.getTextFieldRG().getText(), vC.getComboBoxEstadoCivil().getSelectedItem().toString(), new Agencia(), endereco, 
+					vC.getTextFieldRG().getText(), vC.getComboBoxEstadoCivil().getSelectedItem().toString(),
+					listaAgencias.buscarAgenciaPorNome(vC.getComboBoxAgencia().getSelectedItem().toString()), endereco, 
 					 textFieldEscolaridade.getText());
 			
 			listaClientes.adicionarCliente(cliente);
 			cleanScreen(cadastro);
+			cleanScreen(enderecoPanel);
 			loadTable(listaClientes);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {
+	private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt, DadosClientes listaClientes, DadosAgencias listaAgencias) {
 		try {
 			Endereco endereco = new Endereco( vE.getTextFieldCEP().getText(), 
 					Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
@@ -140,11 +166,13 @@ public class FrmClientes {
 					vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), 
 					new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()), 
 					vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),
-					vC.getTextFieldRG().getText(), vC.getComboBoxEstadoCivil().getSelectedItem().toString(), new Agencia(), endereco, 
-					 textFieldEscolaridade.getText());
+					vC.getTextFieldRG().getText(), vC.getComboBoxEstadoCivil().getSelectedItem().toString(),
+					listaAgencias.buscarAgenciaPorNome(vC.getComboBoxAgencia().getSelectedItem().toString()), endereco, 
+					textFieldEscolaridade.getText());
 			
-			listaClientes.adicionarCliente(cliente);
+			listaClientes.excluirCliente(cliente);
 			cleanScreen(cadastro);
+			cleanScreen(enderecoPanel);
 			loadTable(listaClientes);
 		} catch(Exception e) {
 			e.printStackTrace();
