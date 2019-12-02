@@ -17,11 +17,15 @@ import javax.swing.UIManager;
 
 import model.Administrador;
 import model.Clientes;
+import model.Funcionarios;
+import model.Gerente;
 import registers.DadosClientes;
+import registers.DadosFuncionarios;
 
 public class FrmLogin {
 
 	private DadosClientes listaClientes = new DadosClientes();
+	private DadosFuncionarios listaFuncionarios = new DadosFuncionarios();
 	private JFrame frame;
 	private JPanel painel;
 	private JButton btnLogin;
@@ -101,20 +105,31 @@ public class FrmLogin {
 	@SuppressWarnings("deprecation")
 	private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {
 		Administrador administrador = new Administrador();
+		Funcionarios funcionario = listaFuncionarios.buscarFuncionarioPorCPF(textFieldConta.getText());
 		if (textFieldConta.getText().equals(administrador.getUsuario())) {
 			if (textFieldSenha.getText().equals(administrador.getSenha())) {
 				TelaAdministrador windowADM = new TelaAdministrador();
 				windowADM.setVisible(true);
 				frame.setVisible(false);
 			}
+		} else if(funcionario != null ? funcionario.getCargoEmpresa().equals("Gerente") : false) {
+			Gerente gerente = (Gerente) funcionario;
+			if (gerente.getSenha().equals("")){
+				gerente.setSenha(textFieldSenha.getText());
+			}
+			if (textFieldSenha.getText().equals(gerente.getSenha())) {	
+				TelaGerente windowGerente = new TelaGerente(gerente);
+				windowGerente.setVisible(true);
+				frame.setVisible(false);
+			}
 		} else {
 			Clientes cliente  = new Clientes();
 			cliente = listaClientes.buscarClientePorCPF(textFieldConta.getText());
 			if (cliente != null) {
+				if (cliente.getSenha().equals("")){
+					cliente.setSenha(textFieldSenha.getText());
+				}
 				if (textFieldSenha.getText().equals(cliente.getSenha())) {
-					if (cliente.getSenha().equals("")){
-						cliente.setSenha(textFieldSenha.getText());
-					}
 					FrmConta windowConta = new FrmConta(cliente);
 					windowConta.setVisible(true);
 					frame.setVisible(false);

@@ -95,7 +95,6 @@ public class FrmAgencia {
 			
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				System.out.println(listaFuncionarios.getListaGerentes());
 				comboBoxGerente.setModel(new DefaultComboBoxModel<String>(listaFuncionarios.getListaGerentes()));
 			}
 			

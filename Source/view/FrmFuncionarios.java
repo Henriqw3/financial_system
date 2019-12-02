@@ -65,6 +65,39 @@ public class FrmFuncionarios {
 		initialize(listaFuncionarios, listaAgencias);
 		loadTable(listaFuncionarios);
 	}
+	
+	public FrmFuncionarios(DadosFuncionarios listaFuncionarios) {
+		initialize(listaFuncionarios, new DadosAgencias());
+		loadTable(listaFuncionarios);
+	}
+
+	public JComboBox<String> getComboBoxAgencia() {
+		return vC.getComboBoxAgencia();
+	}
+	
+	public JComboBox<String> getComboBoxCargo() {
+		return comboBoxCargo;
+	}
+	
+	public JFormattedTextField getTxtDataIngresso() {
+		return txtDataIngresso;
+	}
+
+	public JLabel getLblFormacao() {
+		return lblFormacao;
+	}
+
+	public JCheckBox getBoxFormacao() {
+		return boxFormacao;
+	}
+
+	public JLabel getLblDataIngresso() {
+		return lblDataIngresso;
+	}
+
+	public void setTxtDataIngresso(JFormattedTextField txtDataIngresso) {
+		this.txtDataIngresso = txtDataIngresso;
+	}
 
 	private void cleanScreen(JPanel container){
         Component components[] = container.getComponents();
@@ -242,7 +275,7 @@ public class FrmFuncionarios {
 					 vE.getTextFieldBairro().getText(),  vE.getTextFieldCidade().getText(), 
 					 vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
 			
-			if (comboBoxCargo.getSelectedItem().toString().equals("Outro")) {
+			if (comboBoxCargo.getSelectedItem().toString().equals("Outro") || comboBoxCargo.getSelectedItem().toString().equals("Outro2")) {
 				Funcionarios funcionario = new Funcionarios(vC.getTextFieldNomeCadastro().getText(), 
 						 vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()),
 						 vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),  vC.getTextFieldRG().getText(),
@@ -281,7 +314,7 @@ public class FrmFuncionarios {
 					 vE.getTextFieldBairro().getText(),  vE.getTextFieldCidade().getText(), 
 					 vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
 			
-			if (comboBoxCargo.getSelectedItem().toString().equals("Outro")) {
+			if (comboBoxCargo.getSelectedItem().toString().equals("Outro") || comboBoxCargo.getSelectedItem().toString().equals("Outro2")) {
 				Funcionarios funcionario = new Funcionarios(vC.getTextFieldNomeCadastro().getText(), 
 						 vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()),
 						 vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),  vC.getTextFieldRG().getText(),

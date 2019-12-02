@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -40,6 +41,11 @@ public class FrmClientes {
 		initialize(listaClientes, listaAgencias);
 		loadTable(listaClientes);
 	}
+	
+	public FrmClientes(DadosClientes listaClientes) {
+		initialize(listaClientes, new DadosAgencias());
+		loadTable(listaClientes);
+	}
 
 	public JTable getTableClientes() {
 		return vP.getTabelaConsulta();
@@ -47,6 +53,10 @@ public class FrmClientes {
 	
 	public JTabbedPane getClientesView() {
 		return tabbedPane;
+	}
+	
+	public JComboBox<String> getComboBoxAgencia() {
+		return vC.getComboBoxAgencia();
 	}
 	
 	private void cleanScreen(JPanel container){
