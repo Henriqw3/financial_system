@@ -6,7 +6,16 @@ public class Gerente extends Funcionarios {
 
 	private Date dataIngresso;
 	private boolean formacao;
+	private String senha = "";
         
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public Gerente(String nome, String cpf, Date dataNascimento, Character sexo, String rg, String estadoCivil,
 			Agencia agencia, Endereco endereco, String ctps, Double salario, Date dataIngresso,
 			boolean formacao) {

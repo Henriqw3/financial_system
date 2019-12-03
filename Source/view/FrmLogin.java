@@ -17,11 +17,15 @@ import javax.swing.UIManager;
 
 import model.Administrador;
 import model.Clientes;
+import model.Funcionarios;
+import model.Gerente;
 import registers.DadosClientes;
+import registers.DadosFuncionarios;
 
 public class FrmLogin {
 
 	private DadosClientes listaClientes = new DadosClientes();
+	private DadosFuncionarios listaFuncionarios = new DadosFuncionarios();
 	private JFrame frame;
 	private JPanel painel;
 	private JButton btnLogin;
@@ -60,8 +64,7 @@ public class FrmLogin {
 		painel = new JPanel();
 		logo = new JLabel();
 		logo.setBounds(260, 40, 200, 200);
-		logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "/view/logo.png"));
-		System.out.println(System.getProperty("user.dir"));
+		logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "/Source/view/logo.png"));
 		labelConta = new JLabel("Conta");
 		labelConta.setBounds(284, 285, 43, 15);
 		textFieldConta = new JTextField();
@@ -102,10 +105,21 @@ public class FrmLogin {
 	@SuppressWarnings("deprecation")
 	private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {
 		Administrador administrador = new Administrador();
+		Funcionarios funcionario = listaFuncionarios.buscarFuncionarioPorCPF(textFieldConta.getText());
 		if (textFieldConta.getText().equals(administrador.getUsuario())) {
 			if (textFieldSenha.getText().equals(administrador.getSenha())) {
 				TelaAdministrador windowADM = new TelaAdministrador();
 				windowADM.setVisible(true);
+				frame.setVisible(false);
+			}
+		} else if(funcionario != null ? funcionario.getCargoEmpresa().equals("Gerente") : false) {
+			Gerente gerente = (Gerente) funcionario;
+			if (gerente.getSenha().equals("")){
+				gerente.setSenha(textFieldSenha.getText());
+			}
+			if (textFieldSenha.getText().equals(gerente.getSenha())) {	
+				TelaGerente windowGerente = new TelaGerente(gerente);
+				windowGerente.setVisible(true);
 				frame.setVisible(false);
 			}
 		} else {
@@ -115,7 +129,7 @@ public class FrmLogin {
 				if (cliente.getSenha().equals("")){
 					cliente.setSenha(textFieldSenha.getText());
 				}
-				if (textFieldSenha.getText().equals(cliente.getSenha())) {	
+				if (textFieldSenha.getText().equals(cliente.getSenha())) {
 					FrmConta windowConta = new FrmConta(cliente);
 					windowConta.setVisible(true);
 					frame.setVisible(false);

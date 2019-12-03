@@ -30,6 +30,7 @@ public class DadosAgencias {
     public boolean adicionarAgencia(Agencia agencia){
         try {
             this.listaAgencias.add(agencia);
+            
         } catch (Exception e) {
             return false;
         }
@@ -66,4 +67,7 @@ public class DadosAgencias {
     public Agencia buscarAgenciaPorNome(String nome) {
     	return listaAgencias.stream().filter(agencia -> agencia.getNomeAgencia().equals(nome)).findAny().orElse(null);
     }
+    
+    
+    
 }
