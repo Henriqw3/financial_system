@@ -23,6 +23,7 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
 import enumeradores.EnumEstado;
+import java.awt.Font;
 import model.Endereco;
 import model.Funcionarios;
 import model.Gerente;
@@ -49,14 +50,14 @@ public class FrmFuncionarios {
 	private JLabel labelSalario;
 	private JTextField textFieldSalario;
 	private JButton btnCadastrar;
-	private JButton btnRemover;
 	private JTable tableConsulta;
 	private JLabel lblFormacao;
 	private JCheckBox boxFormacao;
 	private JTextField txtCargo;
 	private JLabel lblDataIngresso;
 	private JFormattedTextField txtDataIngresso;
-	
+	private JLabel titulo;
+        
 	public JTabbedPane getFuncionariosView() {
 		return tabbedPane;
 	}
@@ -179,14 +180,7 @@ public class FrmFuncionarios {
 				btnCadastrarActionPerformed(arg0, listaFuncionarios, listaAgencias);
 			}
 		});
-		
-		btnRemover = new JButton("Remover");
-		btnRemover.setBounds(522, 310, 150, 50);
-		btnRemover.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				btnRemoverActionPerformed(arg0, listaFuncionarios, listaAgencias);
-			}
-		});
+
 		cadastro = vC.getCadastro();
 		vC.getComboBoxAgencia().setModel(new DefaultComboBoxModel<String>(listaAgencias.getListaNomeAgencias()));
 		vC.getComboBoxAgencia().addMouseListener(new MouseListener() {
@@ -220,7 +214,6 @@ public class FrmFuncionarios {
 		cadastro.add(boxFormacao);
 		cadastro.add(txtCargo);
 		cadastro.add(btnCadastrar);
-		cadastro.add(btnRemover);
 		cadastro.add(labelNumCTPS);
 		cadastro.add(textFieldNumCTPS);
 		cadastro.add(labelSerieCTPS);
@@ -246,6 +239,10 @@ public class FrmFuncionarios {
 	    ));
 		tabbedPane.add(cadastro);
 		tabbedPane.add(consulta);
+                titulo = new JLabel("Lista Funcinários");
+                titulo.setBounds(412, 20, 300, 42);
+                titulo.setFont(new Font("Arial", 0, 32));
+                consulta.add(titulo);
 		tabbedPane.setTitleAt(0, "Dados Pessoais");
 		tabbedPane.setTitleAt(1, "Consulta");
 	}
@@ -306,43 +303,5 @@ public class FrmFuncionarios {
 			e.printStackTrace();
 		}
 	}
-	
-	private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt, DadosFuncionarios listaFuncionarios, DadosAgencias listaAgencias) {
-		try {
-			Endereco endereco = new Endereco(vE.getTextFieldCEP().getText(), 
-					Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
-					 vE.getTextFieldBairro().getText(),  vE.getTextFieldCidade().getText(), 
-					 vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
-			
-			if (comboBoxCargo.getSelectedItem().toString().equals("Outro") || comboBoxCargo.getSelectedItem().toString().equals("Outro2")) {
-				Funcionarios funcionario = new Funcionarios(vC.getTextFieldNomeCadastro().getText(), 
-						 vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()),
-						 vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),  vC.getTextFieldRG().getText(),
-						 vC.getComboBoxEstadoCivil().getSelectedItem().toString(), 
-						 listaAgencias.buscarAgenciaPorNome(vC.getComboBoxAgencia().getSelectedItem().toString())
-						 , endereco, textFieldNumCTPS.getText() + " " + textFieldSerieCTPS.getText() + " " + 
-						 comboBoxUFCTPS.getSelectedItem().toString().charAt(0),
-						txtCargo.getText(), Double.parseDouble(textFieldSalario.getText()));
-				
-				listaFuncionarios.excluirFuncionario(funcionario);
-			} else {
-				Gerente gerente = new Gerente(vC.getTextFieldNomeCadastro().getText(), 
-						vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()), 
-						vC.getComboBoxSexo().toString().charAt(0), vC.getTextFieldRG().getText(),
-						vC.getComboBoxEstadoCivil().toString(), 
-						listaAgencias.buscarAgenciaPorNome(vC.getComboBoxAgencia().getSelectedItem().toString()), 
-						endereco, textFieldNumCTPS.getText() + " " + textFieldSerieCTPS.getText() + " " 
-						+ comboBoxUFCTPS.getSelectedItem().toString(), 
-						Double.parseDouble(textFieldSalario.getText()),
-						new SimpleDateFormat("dd/MM/yyyy").parse(txtDataIngresso.getText()), 
-						boxFormacao.isSelected());
-				listaFuncionarios.excluirFuncionario(gerente);
-			}
-			cleanScreen(cadastro);
-			cleanScreen(this.endereco);
-			loadTable(listaFuncionarios);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 }

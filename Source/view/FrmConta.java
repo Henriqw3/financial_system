@@ -23,6 +23,14 @@ public class FrmConta {
 	private JLabel lblSaldo;
 	private JLabel lblDataUlt;
 	private JLabel lblNumAgencia;
+        private JLabel lblNumeroConta1;
+	private JLabel lblSaldo1;
+	private JLabel lblDataUlt1;
+	private JLabel lblNumAgencia1;
+        private JLabel lblNumeroConta2;
+	private JLabel lblSaldo2;
+	private JLabel lblDataUlt2;
+	private JLabel lblNumAgencia2;
 	
 
 	public static void main(String[] args) {
@@ -66,22 +74,43 @@ public class FrmConta {
 		frame.getContentPane().add(tabbedPane);
 		
 		corrente = new JPanel();
+                corrente.setLayout(null);
 		tabbedPane.addTab("Conta Corrente", null, corrente, null);
-		lblNumeroConta = new JLabel("Número da Conta: " + cliente.getContas()[0].getNumConta());
-		lblNumeroConta.setBounds(20, 12, 720, 24);
+		lblNumeroConta = new JLabel("Número da Conta: " + cliente.getContas()[0].getNumConta());;
+		lblNumeroConta.setBounds(20, 40, 400, 24);
 		corrente.add(lblNumeroConta);
 		lblNumAgencia = new JLabel("Número da Conta: " + cliente.getContas()[0].getNumConta());
-		lblNumAgencia.setBounds(20, 12, 720, 24);
+		lblNumAgencia.setBounds(20, 80, 400, 24);
 		corrente.add(lblNumAgencia);
 		lblSaldo = new JLabel("Saldo: R$" + cliente.getContas()[0].getSaldo());
-		lblSaldo.setBounds(20, 12, 720, 24);
+		lblSaldo.setBounds(20, 120, 400, 24);
 		corrente.add(lblSaldo);
 		
 		poupanca = new JPanel();
+                poupanca.setLayout(null);
 		tabbedPane.addTab("Conta Poupança", null, poupanca, null);
-		
+		lblNumeroConta1 = new JLabel("Número da Conta: " + cliente.getContas()[0].getNumConta());;
+		lblNumeroConta1.setBounds(20, 40, 400, 24);
+		poupanca.add(lblNumeroConta1);
+		lblNumAgencia1 = new JLabel("Número da Conta: " + cliente.getContas()[0].getNumConta());
+		lblNumAgencia1.setBounds(20, 80, 400, 24);
+		poupanca.add(lblNumAgencia1);
+		lblSaldo1 = new JLabel("Saldo: R$" + cliente.getContas()[0].getSaldo());
+		lblSaldo1.setBounds(20, 120, 400, 24);
+		poupanca.add(lblSaldo1);
+                
 		salario = new JPanel();
+                salario.setLayout(null);
 		tabbedPane.addTab("Conta Salário", null, salario, null);
+                lblNumeroConta2 = new JLabel("Número da Conta: " + cliente.getContas()[0].getNumConta());;
+		lblNumeroConta2.setBounds(20, 40, 400, 24);
+		salario.add(lblNumeroConta2);
+		lblNumAgencia2 = new JLabel("Número da Conta: " + cliente.getContas()[0].getNumConta());
+		lblNumAgencia2.setBounds(20, 80, 400, 24);
+		salario.add(lblNumAgencia2);
+		lblSaldo2 = new JLabel("Saldo: R$" + cliente.getContas()[0].getSaldo());
+		lblSaldo2.setBounds(20, 120, 400, 24);
+		salario.add(lblSaldo2);
 	}
 
 	public void setVisible(boolean arg) {

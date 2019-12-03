@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -34,8 +35,8 @@ public class FrmClientes {
 	private JLabel labelEscolaridade;
 	private JTextField textFieldEscolaridade;
 	private JButton btnCadastrar;
-	private JButton btnRemover;
 	private JTable tableConsulta;
+        private JLabel titulo;
 
 	public FrmClientes(DadosClientes listaClientes, DadosAgencias listaAgencias) {
 		initialize(listaClientes, listaAgencias);
@@ -83,13 +84,6 @@ public class FrmClientes {
 			}
 		});
 		tableConsulta = vP.getTabelaConsulta();
-		btnRemover = new JButton("Remover");
-		btnRemover.setBounds(522, 310, 150, 50);
-		btnRemover.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				btnRemoverActionPerformed(arg0, listaClientes,listaAgencias);
-			}
-		});
 		cadastro = vC.getCadastro();
 		consulta = vP.getConsulta();
 		vC.getComboBoxAgencia().setModel(new DefaultComboBoxModel<String>(listaAgencias.getListaNomeAgencias()));
@@ -115,11 +109,14 @@ public class FrmClientes {
 		cadastro.add(labelEscolaridade);
 		cadastro.add(textFieldEscolaridade);
 		cadastro.add(btnCadastrar);
-		cadastro.add(btnRemover);
 		cadastro.add(enderecoPanel);
 		vE.getTextFieldComplemento().setSize(180, 24);
 		tabbedPane.add(cadastro);
 		tabbedPane.add(consulta);
+                titulo = new JLabel("Lista Clientes");
+                titulo.setBounds(412, 20, 300, 42);
+                titulo.setFont(new Font("Arial", 0, 32));
+                consulta.add(titulo);
 		tabbedPane.setTitleAt(0, "Dados Pessoais");
 		tabbedPane.setTitleAt(1, "Consulta");
 	}
@@ -165,27 +162,4 @@ public class FrmClientes {
 		}
 	}
 	
-	private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt, DadosClientes listaClientes, DadosAgencias listaAgencias) {
-		try {
-			Endereco endereco = new Endereco( vE.getTextFieldCEP().getText(), 
-					Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
-					vE.getTextFieldBairro().getText(),  vE.getTextFieldCidade().getText(), 
-					vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
-			
-			Clientes cliente = new Clientes(vC.getTextFieldNomeCadastro().getText(), 
-					vC.getTextFieldCPFCadastro().getText().replace(".","").replace("-", ""), 
-					new SimpleDateFormat("dd/MM/yyyy").parse(vC.getTextFieldDataNascimento().getText()), 
-					vC.getComboBoxSexo().getSelectedItem().toString().charAt(0),
-					vC.getTextFieldRG().getText(), vC.getComboBoxEstadoCivil().getSelectedItem().toString(),
-					listaAgencias.buscarAgenciaPorNome(vC.getComboBoxAgencia().getSelectedItem().toString()), endereco, 
-					textFieldEscolaridade.getText());
-			
-			listaClientes.excluirCliente(cliente);
-			cleanScreen(cadastro);
-			cleanScreen(enderecoPanel);
-			loadTable(listaClientes);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
 }

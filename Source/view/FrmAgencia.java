@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -35,7 +36,7 @@ public class FrmAgencia {
 	private JPanel endereco;
 	private JTable tableConsulta;
 	private JComboBox<String> comboBoxGerente;
-	
+	private JLabel titulo;
 	public FrmAgencia(DadosAgencias listaAgencias, DadosFuncionarios listaFuncionarios) {
 		initialize(listaAgencias, listaFuncionarios);
 		loadTable(listaAgencias);
@@ -65,9 +66,6 @@ public class FrmAgencia {
 	                "Número", "Nome Fictício", "Gerente", "Associados", "Contas"
 	            }
 	    ));
-		vP.getLblCpf().setVisible(false);
-		vP.getTxtCpfConsulta().setVisible(false);
-		
 		cadastro = new JPanel();
 		cadastro.setSize(1024, 480);
 		cadastro.setLayout(null);
@@ -118,21 +116,15 @@ public class FrmAgencia {
 			}
 		});
 		
-		btnRemover = new JButton("Remover");
-		btnRemover.setBounds(522, 310, 150, 50);
-		btnRemover.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				btnRemoverActionPerformed(arg0, listaAgencias, listaFuncionarios);
-			}
-		});
-		
-		
 		cadastro.add(btnCadastrar);
-		cadastro.add(btnRemover);
 		endereco = vE.getEndereco();
 		cadastro.add(endereco);
 		tabbedPane =  new  JTabbedPane();
 		tabbedPane.add(cadastro);
+                titulo = new JLabel("Lista Agências");
+                titulo.setBounds(412, 20, 300, 42);
+                titulo.setFont(new Font("Arial", 0, 32));
+                consulta.add(titulo);
 		tabbedPane.add(consulta);
 		tabbedPane.setTitleAt(0, "Cadastrar");
 		tabbedPane.setTitleAt(1, "Consultar");
@@ -171,23 +163,5 @@ public class FrmAgencia {
 			e.printStackTrace();
 		}
 	}
-	
-	public void btnRemoverActionPerformed(java.awt.event.ActionEvent evt,  DadosAgencias listaAgencias, DadosFuncionarios listaFuncionarios) {
-		try {
-			Endereco endereco = new Endereco(vE.getTextFieldCEP().getText(), 
-					Integer.parseInt( vE.getTextFieldNumero().getText()),  vE.getTextFieldRua().getText(),
-					 vE.getTextFieldBairro().getText(),  vE.getTextFieldCidade().getText(), 
-					 vE.getComboBoxEstado().getSelectedItem().toString(),  vE.getTextFieldComplemento().getText());
-
-			Agencia agencia = new Agencia(listaAgencias.nextNum(), txtNomeFicticio.getText(), endereco, 
-					(Gerente) listaFuncionarios.buscarFuncionarioPorNome(comboBoxGerente.getSelectedItem().toString()));
-		
-		listaAgencias.adicionarAgencia(agencia);
-		cleanScreen(cadastro);
-		cleanScreen(this.endereco);
-		loadTable(listaAgencias);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+        
 }
