@@ -2,9 +2,13 @@
 package registers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import model.Agencia;
+import model.Endereco;
 import model.Funcionarios;
+import model.Gerente;
 
 public class DadosFuncionarios {
   
@@ -13,6 +17,7 @@ public class DadosFuncionarios {
     public DadosFuncionarios(){
         
         listaFuncionarios = new ArrayList<>();
+        listaFuncionarios.add(new Gerente("Gerente teste", "65106903653", new Date(), 'F', "16389174", "Casado", new Agencia(), new Endereco(), "111", 1002.20, new Date(), true));
     }
     
     public boolean adicionarFuncionario(Funcionarios funcionario){
